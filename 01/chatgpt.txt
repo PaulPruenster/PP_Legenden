@@ -1,52 +1,53 @@
-    The speedup of a parallel program is defined as the ratio of the execution time of the program on a single processor (serial execution) to the execution time on multiple processors (parallel execution). In other words, it is the factor by which the program's execution time is reduced when parallelized.
+1) How is the speedup of a parallel program defined?
+   
+   The speedup of a parallel program is defined as a ratio of the execution time of the program on a single processor (serial execution) vs. the execution time on multiple processors (parallel execution). 
 
-    Amdahl's law is a theoretical law that describes the maximum potential speedup that can be achieved by parallelizing a program. The formal definition of Amdahl's law is:
+2) What is the formal definition of Amdahl's law and what relationship does it describe for parallel programs (explain in your own words)? Why/How is this significant?
+   
+   Amdahl's law is a theoretical law that describes the maximum potential speedup that can be achieved by parallelizing a program. The formal definition of Amdahl's law is:
 
-Speedup = 1 / (s + (1 - s) / N)
+   Speedup(p)= p /( 1 + (p - 1) * f)
 
-where:
+   where "p" is the amount of processors and "f" is the fraction that cannot be parallelized (So we are limited by the fraction, because there is an end of how much time we save when parallelizing a program)
 
-    s is the fraction of the program that cannot be parallelized (the sequential fraction)
-    N is the number of processors used for parallel execution
+3) Compute the theoretical speedup of a program that spends 10% of its time in unparallelizable, sequential regions for 6 cores and for a hypothetically unlimited number of cores.
 
-This formula expresses the idea that the speedup of a program is limited by the sequential fraction, which cannot be parallelized. As the number of processors used for parallel execution increases, the speedup approaches a maximum limit determined by the sequential fraction.
+   Speedup(p)= p /( 1 + (p - 1) * f)
 
-This is significant because it shows that parallelizing a program can only improve its performance up to a certain point, beyond which adding more processors does not result in significant speedup gains.
+   Speedup(p)= 6 /( 1 + (6 - 1) * 0.1)
 
-    For a program that spends 10% of its time in unparallelizable, sequential regions, the maximum theoretical speedup on 6 cores can be computed as follows:
+   Speedup(p)= 6 / 1.5
 
-Speedup = 1 / (s + (1 - s) / N)
+   Speedup(p)= 4
 
-Speedup = 1 / (0.10 + (1 - 0.10) / 6)
+4) Compute the theoretical speedup of a program that spends 20% of its time in unparallelizable, sequential regions for 6 cores and for a hypothetically unlimited number of cores.
 
-Speedup = 3.07
+   Speedup(p)= p /( 1 + (p - 1) * f)
 
-For a hypothetically unlimited number of cores, the speedup would approach 1 / 0.10 = 10.
+   Speedup(p)= 6 /( 1 + (6 - 1) * 0.2)
 
-    For a program that spends 20% of its time in unparallelizable, sequential regions, the maximum theoretical speedup on 6 cores can be computed as follows:
+   Speedup(p)= 6 / 2
 
-Speedup = 1 / (s + (1 - s) / N)
+   Speedup(p)= 3
 
-Speedup = 1 / (0.20 + (1 - 0.20) / 6)
+5) Given an algorithm of time complexity O(n^3). How large (in %) can the unparallelizable, sequential region be at most, such that a speedup of 10 can be achieved using 64 cores?
+   
+   So this time the formula changes and we search another variable: the unparallelizable fraction
 
-Speedup = 2.29
+   Speedup(p)= p /( 1 + (p - 1) * f)
 
-For a hypothetically unlimited number of cores, the speedup would approach 1 / 0.20 = 5.
+   10 = 64/(1 + 63 *f)      | * (1 + 63 * f)
 
-    Given an algorithm with time complexity O(n^3), the maximum fraction of the program that cannot be parallelized (i.e., the sequential fraction) can be computed as follows:
+   10 * (1 + 63 * f) = 64
 
-Let's assume that the parallelized part of the algorithm has time complexity O(n^3/p), where p is the number of processors. The speedup achieved by using p processors can then be expressed as:
+   10 + 630f = 64           | -10
 
-Speedup = Tserial / Tparallel
+   630f = 64                | /630
 
-Speedup = (s + (1 - s) / p) / s
+   f = 64/630
 
-where Tserial is the execution time on a single processor, and Tparallel is the execution time on p processors.
+   f = 0,101587302
 
-We want to achieve a speedup of 10, so we can plug in the values and solve for s:
-
-10 = (s + (1 - s) / 64) / s
-
-s = 0.9859
-
-Therefore, the unparallelizable, sequential region cannot be larger than 1 - 0.9859 = 0.0141, or 1.41% of the total execution time, in order to achieve a speedup of 10 using 64 cores.
+   If in the question the "sequential region" is meant to be  O(n^3), we are finished here: The unparallelizable part can at most be 10.15%
+   
+   If in the question the "sequential region" is meant to be O(n), we still have to take the third root of f. The solution now would be: 46.66%
