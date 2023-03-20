@@ -1,0 +1,117 @@
+After typing "make" we get our output files which we can then execute with our flag: OMP_NUM_THREADS
+
+We then submit all our jobscripts and save the output in our logs.
+(Note: This task was executed on the LCC2 and the wall times may differ if we execute them now!)
+
+We get the following output for the 3 programs:
+
+slow:
+
+| Threads |   1   |   8   |
+|--------------------------
+|  Time   | 2.471 | 64.90 |
+
+medium:
+
+| Threads |   1   |   8   |
+|--------------------------
+|  Time   | 1.058 | 4.712 |
+
+fast:
+
+| Threads |   1   |   8   |
+|--------------------------
+|  Time   | 0.189 | 0.024 |
+
+We can use optimization-flags like "O1", "O2", "O3" or "0fast" and even more.
+
+O1-Optimization:
+
+slow:
+
+| Threads |   1   |
+|------------------
+|  Time   | 2.217 |
+
+medium:
+
+| Threads |   1   |
+|------------------
+|  Time   | 0.711 |
+
+fast:
+
+| Threads |   1   |
+|------------------
+|  Time   | 0.027 |
+
+
+
+O2-Optimization:
+
+slow:
+
+| Threads |   1   |
+|------------------
+|  Time   | 2.213 |
+
+medium:
+
+| Threads |   1   |
+|------------------
+|  Time   | 0.713 |
+
+fast:
+
+| Threads |   1   |
+|------------------
+|  Time   | 0.000 |
+
+
+
+O3-Optimization:
+
+slow:
+
+| Threads |   1   |
+|------------------
+|  Time   | 2.213 |
+
+medium:
+
+| Threads |   1   |
+|------------------
+|  Time   | 0.711 |
+
+fast:
+
+| Threads |   1   |
+|------------------
+|  Time   | 0.000 |
+
+
+
+Ofast-Optimization:
+
+slow:
+
+| Threads |   1   |
+|------------------
+|  Time   | 2.213 |
+
+medium:
+
+| Threads |   1   |
+|------------------
+|  Time   | 0.711 |
+
+fast:
+
+| Threads |   1   |
+|------------------
+|  Time   | 0.000 |
+
+We make a slight improvement with the flags, but which flag to choose does not really matter, because the wall time between them is nearly the same.
+Most of the time the "O2" optimization-flag is choosed because it is sufficient.
+
+Running the job multiple times does not change much: In the beginning there were some extremes, but they went away and were most likely caused by the lcc2 (We think...)

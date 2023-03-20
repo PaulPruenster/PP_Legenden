@@ -42,12 +42,12 @@
 
    10 + 630f = 64           | -10
 
-   630f = 64                | /630
+   630f = 54                | /630
 
-   f = 64/630
+   f = 54/630
 
-   f = 0,101587302
+   f = 0.0857142
 
-   If in the question the "sequential region" is meant to be  O(n^3), we are finished here: The unparallelizable part can at most be 10.15%
+   If in the question the "sequential region" is meant to be  O(n^3), we are finished here: The unparallelizable part can at most be 8.57%
    
-   If in the question the "sequential region" is meant to be O(n), we still have to take the third root of f. The solution now would be: 46.66%
+   If in the question the "sequential region" is meant to be O(n), we still have to take the third root of f. The solution now would be: 44.09%
