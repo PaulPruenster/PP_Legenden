@@ -23,6 +23,10 @@ fast:
 |--------------------------
 |  Time   | 0.189 | 0.024 |
 
+We notice that the wall times do change a lot, but they increase in the slow and medium program and decrease in the fast one.
+This can have multiple issues, but maybe the slow and medium program are not good at "Parallelizing".
+They may have a high fraction of unparallelizable code and the fast one only a small fraction.
+
 We can use optimization-flags like "O1", "O2", "O3" or "0fast" and even more.
 
 O1-Optimization:
