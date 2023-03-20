@@ -1,0 +1,21 @@
+#!/bin/bash
+
+if [ "$#" -ne 1 ]; then                                                       # check if there is 1 argument
+  echo "Usage: $0 <folder>" >&2
+  exit 1                                                                      # if not exit program
+fi
+folder=$1
+
+if [[ "${folder:0-1}" =~ '/'$ ]] ; then                                       # check if last char is '/'
+  folder=${folder%?}                                                          # remove last char
+fi
+
+if [ -f $folder".zip" ]; then                                                 # check if ***.zip already exist
+  echo -e "deleting $folder.zip ...\n"
+  rm "$folder.zip"                                                            # delete if already exists 
+fi
+
+echo "creating $folder.zip..."
+zip -r "$folder.zip" $folder team.txt -x "$folder/readme.md"                  # creat zip without readme.md and team.txt
+
+exit 1
