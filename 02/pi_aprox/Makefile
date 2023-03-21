@@ -5,8 +5,8 @@ all: serial parallel
 
 .PHONY: clean
 clean:
-	$(RM) serial parallel
+	$(RM) serial/serial parallel/parallel
 
-serial: serial.c serial
+serial: serial/serial.c serial/serial
 
-parallel: parallel.c parallel
+parallel: parallel/parallel.c parallel/parallel
