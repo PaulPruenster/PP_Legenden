@@ -1,6 +1,9 @@
 1) How is the speedup of a parallel program defined?
    
-   The speedup of a parallel program is defined as a ratio of the execution time of the program on a single processor (serial execution) vs. the execution time on multiple processors (parallel execution). 
+   The speedup of a parallel program is defined as a ratio of the execution time of the program on a single processor (serial execution) vs. the execution time on multiple processors (parallel execution).
+
+   S(p) = T(1) / T(p)
+
 
 2) What is the formal definition of Amdahl's law and what relationship does it describe for parallel programs (explain in your own words)? Why/How is this significant?
    
@@ -20,6 +23,9 @@
 
    Speedup(p)= 4
 
+
+   if there is a unlimited amount of cores, its 1 / f, so it's 1 / 0.1 = 10
+
 4) Compute the theoretical speedup of a program that spends 20% of its time in unparallelizable, sequential regions for 6 cores and for a hypothetically unlimited number of cores.
 
    Speedup(p)= p /( 1 + (p - 1) * f)
@@ -29,6 +35,8 @@
    Speedup(p)= 6 / 2
 
    Speedup(p)= 3
+
+   if there is a unlimited amount of cores, its 1 / f, so it's 1 / 0.2 = 5
 
 5) Given an algorithm of time complexity O(n^3). How large (in %) can the unparallelizable, sequential region be at most, such that a speedup of 10 can be achieved using 64 cores?
    
