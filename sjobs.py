@@ -3,6 +3,11 @@ import subprocess
 import curses
 import time
 
+# ADD this line to your .bashrc:
+# alias sjobs='python3 ~/PP_Legenden/sjobs.py'
+
+# TODO pass folder as arguments
+
 def get_shell_scripts():
     """Get a list of all the shell scripts in the current directory"""
     files = os.listdir('.')
@@ -14,14 +19,13 @@ def get_shell_scripts():
 
 def get_job_ids():
     """Get a list of all the job IDs from the squeue command"""
-    output = os.popen('squeue -h -o %i').read()
+    output = os.popen('squeue -u $USER -h -o %i').read()
     job_ids = output.strip().split('\n')
     return job_ids
 
 def main(stdscr):
     time.sleep(1/10)
     curses.curs_set(0)
-    stdscr.clear()
     curses.noecho()
     stdscr.nodelay(True)
     curses.init_pair(1, curses.COLOR_WHITE, curses.COLOR_GREEN)
@@ -33,13 +37,18 @@ def main(stdscr):
 
     while True:
         rows, cols = stdscr.getmaxyx()
-
-        shell_scripts = get_shell_scripts()
-        job_ids = get_job_ids()
-
         stdscr.clear()
 
-        stdscr.addstr(0, 0, os.popen('squeue').read())
+        shell_scripts = get_shell_scripts()
+        if selected_file_index > len(shell_scripts):
+            selected_file_index = len(shell_scripts) -1
+
+        job_ids = get_job_ids()
+        if selected_jobs_index > len(job_ids):
+            selected_jobs_index = len(job_ids) - 1
+
+
+        stdscr.addstr(0, 0, os.popen('squeue -u $USER').read())
 
         stdscr.addstr(rows -1, 0, 'Switch lists with right/left arrow, sbatch job with s, scancel with c, quit with q')
 
