@@ -41,7 +41,7 @@ def main(stdscr):
 
         stdscr.addstr(0, 0, os.popen('squeue').read())
 
-        stdscr.addstr(rows -1, 0, 'Switch lists with right/left arrow, sbatch job with s, scancel with c')
+        stdscr.addstr(rows -1, 0, 'Switch lists with right/left arrow, sbatch job with s, scancel with c, quit with q')
 
         if len(shell_scripts) > 0:
             stdscr.addstr(5, 11, f'Found shell scripts: {len(shell_scripts)}')
