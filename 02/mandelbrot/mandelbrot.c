@@ -14,6 +14,25 @@
 
 void calc_mandelbrot(uint8_t image[Y][X]) {
 	// TODO: Write your code here!
+        for (int i=0; i<Y; i++) {
+                for (int j=0; j<X; j++) {
+                        float x = 0.0;
+                        float y = 0.0;
+
+                        float cx = 0.0; // dont know what they do now
+                        float cy = 0.0;
+
+                        int iteration = 0;
+                        while (x*x + y*y <= 2*2 && iteration < MAX_ITER) {
+                                float x_tmp = x*x - y*y + cx;
+                                y = 2*x*y + cy;
+                                x = x_tmp;
+                                iteration++;
+                        }
+
+                        image[i][j] = iteration % 256;
+                }
+        }
 }
 
 int main() {
