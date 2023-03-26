@@ -1,0 +1,15 @@
+In this exercise we had to find the difference in cache management and how this can affect programs, like the different implementations of the 
+Hamdard-product. We have a 4-way-set-associative cache. This means that the cache is divided into sets, and each memory address maps to a specific set. 
+The "4-way" part of the name means that there are four cache lines (or blocks) in each set.
+
+Now assuming that all variables are initialized properly and our matrices stored in contiguous memory and in row-major order, we want to find
+out how the matrix size "n" and the line size "s" influence eachother.
+
+We can look at our demo file with the LRU algorithm to understand this:
+Whenever we need to load a new cache line, this is called a "cache miss". If it already is in the cache, we have a cache hit!
+
+We can find a formula by finding the probability of a cache miss per matrix-entry `times` the size of the matrix.
+
+We simulated this with the hadamard_demo-program.
+
+we can try using cachegrind, but are getting nearly the same results for both programs. (Same for perf)

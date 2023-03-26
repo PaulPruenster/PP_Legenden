@@ -1,0 +1,18 @@
+
+ Performance counter stats for './hadamard_01':
+
+              1.05 msec task-clock:u              #    0.503 CPUs utilized          
+                 0      context-switches:u        #    0.000 K/sec                  
+                 0      cpu-migrations:u          #    0.000 K/sec                  
+               150      page-faults:u             #    0.142 M/sec                  
+                 0      cycles:u                  #    0.000 GHz                      (6.29%)
+         1,789,026      instructions:u                                                (99.24%)
+           376,192      branches:u                #  357.239 M/sec                  
+             4,232      branch-misses:u           #    1.12% of all branches          (93.71%)
+
+       0.002093137 seconds time elapsed
+
+       0.000000000 seconds user
+       0.001883000 seconds sys
+
+
