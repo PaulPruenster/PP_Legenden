@@ -1,4 +1,4 @@
-CFLAGS = --std=gnu11 -Wall -Werror -Wextra 
+CFLAGS = --std=gnu11 -Wall -Wextra 
 
 .PHONY: all
 all: hadamard
