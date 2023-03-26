@@ -1,17 +1,70 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
+#include <stdbool.h>
 
+#define CACHE_SIZE 5
+
+
+int cache[CACHE_SIZE] = {0,0,0,0,0};
+
+// Declare a global array to keep track of the age of each element in the cache
+int age[CACHE_SIZE];
+
+// Declare a global variable to keep track of the current age
+int64_t current_age = 0;
+
+int find_lru_index() {
+    int lru_index = 0;
+    int lru_age = age[0];
+
+    for (int i = 1; i < CACHE_SIZE; i++) {
+        if (age[i] < lru_age) {
+            lru_age = age[i];
+            lru_index = i;
+        }
+    }
+
+    return lru_index;
+}
+
+// Function to check if an element is present in the cache
+bool is_present(int element) {
+    for (int i = 0; i < CACHE_SIZE; i++) {
+        if (cache[i] == element) {
+            age[i] = current_age++;
+            return true;
+        }
+    }
+
+    return false;
+}
+
+// Function to insert an element into the cache
+bool insert(int element) {
+    // Check if the element is already present in the cache
+    if (is_present(element)) {
+        return true;
+    }
+
+    // Find the index of the element with the least recently used age
+    int lru_index = find_lru_index();
+
+    // Replace the element with the least recently used age
+    cache[lru_index] = element;
+    age[lru_index] = current_age++;
+    return false;
+}
 
 int64_t firstVariant(int32_t **a, int32_t **b, int32_t **c, size_t n, size_t s) {
-    size_t block_size = s * 4;                                  //block size is the size of the cache block -> cache line size times the size of an int (4 bytes)
-    size_t block_count = n / s;                                 //block count is the amount of cache blocks we have -> matrix length / cache line size
-    int64_t misses = 0;
+int64_t misses = 0;
     for (size_t i = 0; i < n; ++i) {
         for (size_t j = 0; j < n; ++j) {
             c[i][j] = a[i][j] * b[i][j];
-            size_t block_index = (i * n + j) / block_size % block_count;   // gives us the block index which shows us where we can find the data
-            misses += (block_index * 3) + 1;
+            size_t block_index = (i * n + j) / s;   // gives us the block index which shows us where we can find the data
+            if (!insert(block_index)){
+                ++misses;
+            }
         }
         
     }
@@ -19,14 +72,14 @@ int64_t firstVariant(int32_t **a, int32_t **b, int32_t **c, size_t n, size_t s) 
 }
 
 int64_t secondVariant(int32_t **a, int32_t **b, int32_t **c, size_t n, size_t s) {
-    size_t block_size = s * 4;                                  //block size is the size of the cache block -> cache line size times the size of an int (4 bytes)
-    size_t block_count = n / s;                                 //block count is the amount of cache blocks we have -> matrix length / cache line size
     int64_t misses = 0;
     for (size_t j = 0; j < n; ++j) {
         for (size_t i = 0; i < n; ++i) {
             c[i][j] = a[i][j] * b[i][j];
-            size_t block_index = (i * n + j) / block_size % block_count;   // gives us the block index which shows us where we can find the data
-            misses += (block_index * 3) + 1;
+            size_t block_index = (i * n + j) / s;   // gives us the block index which shows us where we can find the data
+            if (!insert(block_index)){
+                ++misses;
+            }
         }
     }
     return misses;
