@@ -1,4 +1,4 @@
-CFLAGS = -std=gnu11 -Wall -Wextra -lm
+CFLAGS = -std=gnu11 -Wall -Wextra -lm -fopenmp # added -fopenmp
 
 .PHONY: all
 all: mandelbrot
