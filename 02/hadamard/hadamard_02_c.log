@@ -1,0 +1,24 @@
+==15101== Cachegrind, a cache and branch-prediction profiler
+==15101== Copyright (C) 2002-2017, and GNU GPL'd, by Nicholas Nethercote et al.
+==15101== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+==15101== Command: ./hadamard_02
+==15101== 
+==15101== brk segment overflow in thread #1: can't grow to 0x4a44000
+==15101== (see section Limitations in user manual)
+==15101== NOTE: further instances of this message will not be shown
+==15101== 
+==15101== I   refs:      153,385,360
+==15101== I1  misses:            795
+==15101== LLi misses:            791
+==15101== I1  miss rate:        0.00%
+==15101== LLi miss rate:        0.00%
+==15101== 
+==15101== D   refs:       77,557,305  (60,363,655 rd   + 17,193,650 wr)
+==15101== D1  misses:      3,512,209  ( 2,382,210 rd   +  1,129,999 wr)
+==15101== LLd misses:        288,409  (    97,488 rd   +    190,921 wr)
+==15101== D1  miss rate:         4.5% (       3.9%     +        6.6%  )
+==15101== LLd miss rate:         0.4% (       0.2%     +        1.1%  )
+==15101== 
+==15101== LL refs:         3,513,004  ( 2,383,005 rd   +  1,129,999 wr)
+==15101== LL misses:         289,200  (    98,279 rd   +    190,921 wr)
+==15101== LL miss rate:          0.1% (       0.0%     +        1.1%  )

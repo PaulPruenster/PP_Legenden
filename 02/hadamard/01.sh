@@ -3,9 +3,9 @@
 # Execute job in the partition "lva" unless you have special requirements.
 #SBATCH --partition=lva
 # Name your job to be able to identify it later
-#SBATCH --job-name hadamard_01
+#SBATCH --job-name hadamard_01_c
 # Redirect output stream to this file
-#SBATCH --output=hadamard_01.log
+#SBATCH --output=hadamard_01_c.log
 # Maximum number of tasks (=processes) to start in total
 #SBATCH --ntasks=1
 # Maximum number of tasks (=processes) to start per node
@@ -13,4 +13,4 @@
 # Enforce exclusive node allocation, do not share with other jobs
 #SBATCH --exclusive
 
-perf stat ./hadamard_01
+valgrind --tool=cachegrind ./hadamard_01

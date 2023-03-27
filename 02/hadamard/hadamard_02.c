@@ -17,7 +17,7 @@ int main(){
     For the sake of simplicity we use multiples of 4 for s, so that the 4 byte integer can be stored.
     Now when using s = 4 we get 4 ints per set (we have 4 cache lines à 4 bytes)*/
     
-    size_t n = 100;
+    size_t n = 1000;
 
     int32_t **a = malloc(n * sizeof(int32_t*));
     int32_t **b = malloc(n * sizeof(int32_t*));
