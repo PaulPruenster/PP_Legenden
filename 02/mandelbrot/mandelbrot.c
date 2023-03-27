@@ -14,9 +14,11 @@
 #define MAX_ITER 10000
 
 void calc_mandelbrot(uint8_t image[Y][X]) {
-  #pragma omp parallel
+
+  #pragma omp parallel for schedule(dynamic) //num_threads(8)
   for (int y_pixel = 0; y_pixel < Y; y_pixel++) {
     double cy = ((double)y_pixel / Y) * 2.0 - 1.0; // map y_pixel to Mandelbrot y-axis [-1, 1]
+    #pragma omp parallel for schedule(dynamic) //num_threads(8)
     for (int x_pixel = 0; x_pixel < X; x_pixel++) {
       double x = 0.0;
       double y = 0.0;

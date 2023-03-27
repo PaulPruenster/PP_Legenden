@@ -1,0 +1,6 @@
+Can you think of a way to parallelize this algorithm?
+
+One way to parallelize the Mandelbrot algorithm is to use OpenMP's "#pragma omp parallel for"  directive to distribute the work of the nested for loops across multiple threads.
+By doing so, the computation time can be significantly reduced. To further improve the time we used "schedule(dynamic)", with was the fastest out of the 4 we found on the slides.
+
+https://docs.google.com/spreadsheets/d/1VUlN41uLIsMXXYvFVh6rv3BB6wTgBKRTRgekkDIsTlw/edit?usp=sharing
