@@ -88,13 +88,14 @@ def main(stdscr):
         elif key == curses.KEY_RIGHT and selected_list_index < 1:
             selected_list_index += 1
         elif key == ord('s') or key == curses.KEY_ENTER  or key == 10 or key == 13:
-            ret = os.system('make')
+            os.system('make')
             makemsg = 0
             selected_file = shell_scripts[selected_file_index]
             os.system(f'sbatch {selected_file}')
         elif key == ord('c'):
             os.system(f'scancel {job_ids[selected_jobs_index]}')
         elif key == ord('q'):
+            os.system('make clean')
             break
 
 if __name__ == '__main__':
