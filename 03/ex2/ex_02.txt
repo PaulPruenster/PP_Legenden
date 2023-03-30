@@ -2,3 +2,9 @@ This exercise deals with performance analysis and improvement of a given code.
 The program reads a matrix size n from the command-line.
 Then two square matrices a and b of size n*n are filled with random numbers.
 Finally, the program should print the sum of all elements of matrix c and the wall clock time after the matrix multiplication c=a*b was conducted.
+
+
+There were 3 problems in the code (or 3 things that were not quite right):
+- "#pragma omp parallel default(none) shared(n, a, b, c, local_res)" gets removed because it was redundant
+- add "schedule(dynamic)" to the second pragma statement, so the for-loop gets dynamically split up so that the threads are parallel now
+- add "reduction(+: local_res[0:omp_get_num_threads()])" when we sum up all the values of the "submatrix for every thread"
