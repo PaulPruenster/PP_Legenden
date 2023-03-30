@@ -35,6 +35,8 @@ def main(stdscr):
     selected_file_index = 0
     selected_jobs_index = 0
 
+    makemsg = 100
+
     while True:
         rows, cols = stdscr.getmaxyx()
         stdscr.clear()
@@ -47,6 +49,9 @@ def main(stdscr):
         if selected_jobs_index > len(job_ids):
             selected_jobs_index = len(job_ids) - 1
 
+        if makemsg < 30:
+            stdscr.addstr(rows -2, 0, 'Executed make command')
+            makemsg += 1
 
         stdscr.addstr(0, 0, os.popen('squeue -u $USER').read())
 
@@ -82,12 +87,15 @@ def main(stdscr):
             selected_list_index -= 1
         elif key == curses.KEY_RIGHT and selected_list_index < 1:
             selected_list_index += 1
-        elif key == ord('s'):
+        elif key == ord('s') or key == curses.KEY_ENTER  or key == 10 or key == 13:
+            os.system('make')
+            makemsg = 0
             selected_file = shell_scripts[selected_file_index]
             os.system(f'sbatch {selected_file}')
         elif key == ord('c'):
             os.system(f'scancel {job_ids[selected_jobs_index]}')
         elif key == ord('q'):
+            os.system('make clean')
             break
 
 if __name__ == '__main__':
