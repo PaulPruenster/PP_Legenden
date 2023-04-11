@@ -4,7 +4,7 @@
 #include <omp.h>
 
 int main() {
-        long n = 700000000;
+        long n = 100000000;
         unsigned int num_threads = 8;
         double x, y, pi;
         long i, count = 0;
