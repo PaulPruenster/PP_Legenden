@@ -1,12 +1,12 @@
 CFLAGS = -std=gnu11 -Wall -Werror -Wextra -fopenmp -Ofast
 
 .PHONY: all
-all: serial parallel
+all: critical atomic reduction
 
 .PHONY: clean
 clean:
-	$(RM) serial parallel
+	$(RM) critical atomic reduction
 
-serial: serial.c serial
-
-parallel: parallel.c parallel
+critical: critical.c critical
+atomic: atomic.c atomic
+reduction: reduction.c reduction
