@@ -8,7 +8,7 @@
 #endif
 
 int main() {
-    long n = 700000000;
+    long n = 500000000;
     double x, y, pi;
     long i, count = 0;
     double start_time, end_time;
