@@ -13,4 +13,4 @@
 # Enforce exclusive node allocation, do not share with other jobs
 #SBATCH --exclusive
 
-OMP_NUM_THREADS=8 ./localsum
+perf stat -B -e cache-references,cache-misses ./localsum

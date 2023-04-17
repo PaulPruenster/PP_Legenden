@@ -1,2 +1,14 @@
-Approximate value of pi: 3.141462
-Time taken: 0.204702 seconds
+Approximate value of pi: 3.141593
+Time taken: 0.201969 seconds
+
+ Performance counter stats for './localsum':
+
+            28,221      cache-references:u                                          
+             1,468      cache-misses:u            #    5.202 % of all cache refs    
+
+       0.205273534 seconds time elapsed
+
+       1.614969000 seconds user
+       0.000999000 seconds sys
+
+

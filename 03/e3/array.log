@@ -1,2 +1,14 @@
-Approximate value of pi: 3.141445
-Time taken: 1.511582 seconds
+Approximate value of pi: 3.141574
+Time taken: 1.494885 seconds
+
+ Performance counter stats for './array':
+
+        18,943,442      cache-references:u                                          
+        15,462,970      cache-misses:u            #   81.627 % of all cache refs    
+
+       1.498345887 seconds time elapsed
+
+      11.855185000 seconds user
+       0.001999000 seconds sys
+
+

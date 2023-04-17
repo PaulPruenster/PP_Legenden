@@ -1,0 +1,17 @@
+We get the following output for each of the programs:
+
+array.sh:
+18,943,442      cache-references:u                                          
+15,462,970      cache-misses:u 
+
+bufferarray.sh:
+35,497,548      cache-references:u                                          
+18,819,504      cache-misses:u
+
+localsum.sh:
+28,221      cache-references:u                                          
+1,468       cache-misses:u
+
+
+We can see that the localsum-version is the version that uses the cache least, but also has the least cache misses (can also depend on the 
+small amount of general cache references). The array.sh and bufferarray.sh version look kinda the same, but the bufferarray-version has fewer misses!
