@@ -10,7 +10,7 @@ int main() {
         long i, count = 0;
 
         // long is 32 byte -- padding is times long buffer
-        unsigned int padding = 4; // 4 * 32 is 128 byte buffer
+        unsigned int padding = 10; // 10 * 32 is 320 byte buffer -- 4 was still false sharing so the aligned bytes read is somewhere between 4 and 10
         long local_counts[num_threads*padding];
         double start_time, end_time;
 
