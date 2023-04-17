@@ -1,14 +1,13 @@
-Approximate value of pi: 3.141590
-Time taken: 2.625648 seconds
+Approximate value of pi: 3.141564
+Time taken: 1.976980 seconds
 
  Performance counter stats for './bufferarray':
 
-        35,497,548      cache-references:u                                          
-        18,819,504      cache-misses:u            #   53.016 % of all cache refs    
+        25,458,113      L1-dcache-loads-misses:u                                    
 
-       2.648266048 seconds time elapsed
+       1.980755366 seconds time elapsed
 
-      17.852011000 seconds user
-       0.002998000 seconds sys
+      13.272441000 seconds user
+       0.010995000 seconds sys
 
 

@@ -13,4 +13,4 @@
 # Enforce exclusive node allocation, do not share with other jobs
 #SBATCH --exclusive
 
-perf stat -B -e cache-references,cache-misses ./array
+perf stat -e L1-dcache-loads-misses ./array
