@@ -4,11 +4,12 @@ array.sh:
 20,909,791      L1-dcache-loads-misses:u
 
 bufferarray.sh:
-25,458,113      L1-dcache-loads-misses:u 
+30,192      L1-dcache-loads-misses:u 
 
 localsum.sh:
 24,618      L1-dcache-loads-misses:u
 
 
 We can see that the localsum-version is the version that uses the cache least, but also has the least cache misses (can also depend on the 
-small amount of general cache references). The array.sh and bufferarray.sh version look kinda the same, but the bufferarray-version has fewer misses!
+small amount of general cache references). The array is the worst but the bufferarray has not so much more misses with a big enough padding.
+The perfect padding should be somewhere between 4 and 10 times long. But it depends on the amount of aligned bytes stored in the cache of each cpu.
