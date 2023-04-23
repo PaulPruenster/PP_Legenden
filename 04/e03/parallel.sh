@@ -5,7 +5,7 @@
 # Name your job to be able to identify it later
 #SBATCH --job-name mergesort_parallel
 # Redirect output stream to this file
-#SBATCH --output=mergesort_parallel.log
+#SBATCH --output=mergesort_parallel_8.log
 # Maximum number of tasks (=processes) to start in total
 #SBATCH --ntasks=1
 # Maximum number of tasks (=processes) to start per node
@@ -13,4 +13,4 @@
 # Enforce exclusive node allocation, do not share with other jobs
 #SBATCH --exclusive
 
-OMP_NUM_THREADS=1 ./mergesort_parallel 100000000
+OMP_NUM_THREADS=32 ./mergesort_parallel 100000000
