@@ -3,9 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-int * A;
-int * B;
+#include <time.h>
 
 // This merge-function is from the slides and it sorts two arrays of size na & nb to a new sorted array C of size na + nb
 void Merge(int *C, int *A, int *B, int na, int nb) {
@@ -30,7 +28,7 @@ void MergeSort(int *B, int *A, int n) {
 		B[0] = A[0];}
 	else {
 		// here we create a new array C which will then be our recursive return array B
-		int * C = malloc(sizeof(C) * n);
+		int * C = malloc(sizeof(int) * n);
 
 		// here we start the recursion: with the first half of the solution and data array we start the first mergesort and with the 
 		// second  half of the solution and data arrays we start the other mergesort. The recursion starts as a task so that multiple threads can go to work right here
@@ -71,15 +69,12 @@ int main(int argc, char **argv) {
 	}
 
 	// allocate memory
-	A = malloc(sizeof(A) * n);
-	B = malloc(sizeof(B) * n);
+	int * A = malloc(sizeof(int) * n);
+    int * B = calloc(n, sizeof(int));
 	// fill matrix
-	srand(1213123);
+	unsigned int seed = time(NULL);
 	for (long i = 0; i < n; ++i) {
-		for (long j = 0; j < n; ++j) {
-			A[i] = rand();
-			B[i] = 0;
-		}
+		A[i] = rand_r(&seed);
 	}
 
 	// Real program starts right here
