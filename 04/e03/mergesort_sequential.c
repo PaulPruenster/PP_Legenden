@@ -3,9 +3,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
-int * A;
-int * B;
 
 // This merge-function is from the slides and it sorts two arrays of size na & nb to a new sorted array C of size na + nb
 void Merge(int *C, int *A, int *B, int na, int nb) {
@@ -68,15 +67,12 @@ int main(int argc, char **argv) {
 	}
 
 	// allocate memory
-	A = malloc(sizeof(A) * n);
-	B = malloc(sizeof(B) * n);
+	int * A = malloc(sizeof(A) * n);
+    int * B = calloc(n, sizeof(int));
 	// fill matrix
-	srand(1213123);
+	unsigned int seed = time(NULL);
 	for (long i = 0; i < n; ++i) {
-		for (long j = 0; j < n; ++j) {
-			A[i] = rand();
-			B[i] = 0;
-		}
+		A[i] = rand_r(&seed);
 	}
 
 	// Real program starts right here
