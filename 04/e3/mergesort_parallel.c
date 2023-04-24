@@ -26,7 +26,7 @@ void Merge(int *C, int *A, int *B, int na, int nb) {
 void MergeSort(int *B, int *A, int n) {
 	if (n==1) {
 		B[0] = A[0];}
-	else if (n > 100000){
+	else if (n > 1000000){
 		// here we create a new array C which will then be our recursive return array B
 		int * C = malloc(sizeof(int) * n);
 
