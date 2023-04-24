@@ -13,4 +13,4 @@
 # Enforce exclusive node allocation, do not share with other jobs
 #SBATCH --exclusive
 
-OMP_NUM_THREADS=32 ./mergesort_parallel 100000000
+OMP_NUM_THREADS=8 ./mergesort_parallel 100000000

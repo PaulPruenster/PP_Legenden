@@ -26,7 +26,7 @@ void Merge(int *C, int *A, int *B, int na, int nb) {
 void MergeSort(int *B, int *A, int n) {
 	if (n==1) {
 		B[0] = A[0];}
-	else {
+	else if (n > 100000){
 		// here we create a new array C which will then be our recursive return array B
 		int * C = malloc(sizeof(int) * n);
 
@@ -39,6 +39,19 @@ void MergeSort(int *B, int *A, int n) {
 		
 		// our two halfs of C get merged into the recursive return array B as soon as the two tasks are finished
         #pragma omp task
+		Merge(B, C, C+n/2, n/2, n-n/2);
+
+		//now we can free the temporal solution array C again
+		free(C);
+	}
+	else {
+		// here we create a new array C which will then be our recursive return array B
+		int * C = malloc(sizeof(int) * n);
+		// here we start the recursion: with the first half of the solution and data array we start the first mergesort and with the 
+		// second  half of the solution and data arrays we start the other mergesort. The recursion starts as a task so that multiple threads can go to work right here
+        MergeSort(C, A, n/2);
+		MergeSort(C+n/2, A+n/2, n-n/2);
+		// our two halfs of C get merged into the recursive return array B as soon as the two tasks are finished
 		Merge(B, C, C+n/2, n/2, n-n/2);
 
 		//now we can free the temporal solution array C again
