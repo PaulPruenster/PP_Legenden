@@ -1,3 +1,7 @@
+
+https://docs.google.com/spreadsheets/d/1Jg1me5njGN0m9VCQQV03pSh0lCdXdN4wNxfCHyiIH7I/edit?usp=sharing
+
+
 OMP_PLACES is an environment variable used in OpenMP (Open Multi-Processing)
 programming to control the placement of threads and their corresponding data.
 
