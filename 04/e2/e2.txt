@@ -14,6 +14,9 @@ Sometimes there is a deadlock (?)
 
 3) Is any #pragma omp flush required:
 
-# TODO
+#pragma omp flush can be helpful, because with this, all the threads "synchronize with eachother".
+Whenever we use this, all changes from each thread get commited. With this, all our threads can see
+changes in the shared variables, like the "data" and "flag" variable - so we put # pragam omp flush(data, flag) 
+after every write/read operation.
 
 doc: https://www.openmp.org/spec-html/5.0/openmpsu96.html
