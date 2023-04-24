@@ -1,0 +1,33 @@
+OMP_PLACES is an environment variable used in OpenMP (Open Multi-Processing)
+programming to control the placement of threads and their corresponding data.
+
+OMP_PLACES=cores:
+    the OpenMP runtime system will create a thread for each physical processing core on the system,
+    and each thread will be assigned to execute on the corresponding core. 
+
+
+OMP_PLACES=sockets:
+    the OpenMP runtime system will create a thread for each physical processor socket on the system,
+    and each thread will be assigned to execute on the corresponding socket.
+
+OMP_PLACES=threads:
+    the OpenMP runtime system will create a thread for each hardware thread on the system,
+    and each thread will be assigned to execute on the corresponding hardware thread. 
+
+
+OMP_PROC_BIND=close:
+    The OpenMP runtime system will attempt to bind each thread to a processor or core 
+    that is physically close to the processor or core that executed the thread's predecessor.
+    
+
+OMP_PROC_BIND=spread:
+    The OpenMP runtime system will attempt to spread the threads across the available processors or cores as evenly as possible. 
+
+OMP_PROC_BIND=master:
+    the OpenMP runtime system will bind each thread to the same processor or core as the master thread,
+    which is the thread that executed the parallel region construct.
+
+We can see that master is faster then close, because if all thread are bount to a single processor, it reduces cache and memory contention.
+We can see that master is faster then spread, because spread cannot use the same cache hierachy and memory recources.
+
+
