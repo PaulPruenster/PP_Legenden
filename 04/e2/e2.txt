@@ -1,0 +1,22 @@
+1) What should happen:
+
+The program creates 2 variables and then 2 threads, in one it sets the variavles to
+some values and in the other thread there is a loop that waits until the flag var is
+set and then prints the data var. So it should always print 42 as data is set before
+the flag in the first thread.
+
+2) Compile and run in a loop of 1000:
+
+salloc --exclusive --tasks-per-node=1 --cpus-per-task=1 srun --pty bash
+then run ./test.sh
+
+Sometimes there is a deadlock (?)
+
+3) Is any #pragma omp flush required:
+
+#pragma omp flush can be helpful, because with this, all the threads "synchronize with eachother".
+Whenever we use this, all changes from each thread get commited. With this, all our threads can see
+changes in the shared variables, like the "data" and "flag" variable - so we put # pragam omp flush(data, flag) 
+after every write/read operation.
+
+doc: https://www.openmp.org/spec-html/5.0/openmpsu96.html
