@@ -31,7 +31,12 @@ OMP_PROC_BIND=master:
     the OpenMP runtime system will bind each thread to the same processor or core as the master thread,
     which is the thread that executed the parallel region construct.
 
-We can see that master is faster then close, because if all thread are bount to a single processor, it reduces cache and memory contention.
-We can see that master is faster then spread, because spread cannot use the same cache hierachy and memory recources.
+
+In our diagram we can see the same thing that was already mentioned in the lecture:
+    - In general the master-binding, is the best, because some threads depend on their master-threads and therefore we have a reduced cache and memory contention.
+    - The spread-binding in our case is completely useless, because we have a lot of conflicts and a bad "locality" (bc of the spread)
+    - close- Binding is a lot better than the spread-binding, but we still have more conflicts then master-binding
+    - In general creating a thread for each hardware thread is the best solution in terms of wall-time, because with this option we make sure that
+    the hardware threads have a good workload 
 
 
