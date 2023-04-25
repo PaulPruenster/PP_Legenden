@@ -1,0 +1,8 @@
+b) We can see that we have an exponential increase in terms of wall-time, which is obvious, because we have a recursive function.
+The other thing that we notice is, that the parallel version is much slower than the sequential one. This happens, because we create a 
+lot of tasks. A solution for this would be to switch into the sequential delannoy after some value i and j closer to n.
+
+We have a bottleneck for the parallel version between n = 6 and n = 8. So to improve the parallel version, we just use the serial version
+for the numbers, smaller than 8 (or 9), because the sequential version is pretty fast for n = 8 (< 0.00 seconds).
+
+With the, now fast, version we have a time of 149.74s for n=16. When using the sequential one we only get
