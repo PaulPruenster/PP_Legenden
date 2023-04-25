@@ -5,9 +5,6 @@
 #include <string.h>
 #include <time.h>
 
-#ifndef OMP_NUM_THREADS
-#define OMP_NUM_THREADS 1
-#endif
 
 // This merge-function is from the slides and it sorts two arrays of size na & nb to a new sorted array C of size na + nb
 void Merge(int *C, int *A, int *B, int na, int nb) {
@@ -100,7 +97,7 @@ int main(int argc, char **argv) {
 
 	//start MergeSort with the two arrays and the size
 	//start MergeSort with the two arrays and the size
-	#pragma omp parallel num_threads(OMP_NUM_THREADS)
+	#pragma omp parallel
 	{
 		#pragma omp single
 		MergeSort(B, A, n);
