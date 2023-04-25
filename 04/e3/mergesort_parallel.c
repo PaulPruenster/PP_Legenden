@@ -5,6 +5,10 @@
 #include <string.h>
 #include <time.h>
 
+#ifndef OMP_NUM_THREADS
+#define OMP_NUM_THREADS 1
+#endif
+
 // This merge-function is from the slides and it sorts two arrays of size na & nb to a new sorted array C of size na + nb
 void Merge(int *C, int *A, int *B, int na, int nb) {
 	while (na>0 && nb>0) {
@@ -38,7 +42,7 @@ void MergeSort(int *B, int *A, int n) {
 		MergeSort(C+n/2, A+n/2, n-n/2);
 		
 		// our two halfs of C get merged into the recursive return array B as soon as the two tasks are finished
-        #pragma omp task
+        #pragma omp taskwait
 		Merge(B, C, C+n/2, n/2, n-n/2);
 
 		//now we can free the temporal solution array C again
@@ -81,6 +85,7 @@ int main(int argc, char **argv) {
 		return EXIT_FAILURE;
 	}
 
+
 	// allocate memory
 	int * A = malloc(sizeof(int) * n);
     int * B = calloc(n, sizeof(int));
@@ -94,7 +99,13 @@ int main(int argc, char **argv) {
 	double start_time = omp_get_wtime();
 
 	//start MergeSort with the two arrays and the size
-	MergeSort(B, A, n);
+	//start MergeSort with the two arrays and the size
+	#pragma omp parallel num_threads(OMP_NUM_THREADS)
+	{
+		#pragma omp single
+		MergeSort(B, A, n);
+	}
+
 
 	double end_time = omp_get_wtime();
 	printf("time: %2.6f seconds\n", end_time - start_time);
