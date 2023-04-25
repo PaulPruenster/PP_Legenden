@@ -13,4 +13,4 @@
 # Enforce exclusive node allocation, do not share with other jobs
 #SBATCH --exclusive
 
-./delannoy 13
+./delannoy_parallel_fast 13
