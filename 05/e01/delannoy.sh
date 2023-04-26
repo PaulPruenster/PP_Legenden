@@ -5,7 +5,7 @@
 # Name your job to be able to identify it later
 #SBATCH --job-name mergesort_parallel
 # Redirect output stream to this file
-#SBATCH --output=mergesort_parallel_1.log
+#SBATCH --output=delannoy_fast_1.log
 # Maximum number of tasks (=processes) to start in total
 #SBATCH --ntasks=1
 # Maximum number of tasks (=processes) to start per node
@@ -13,4 +13,4 @@
 # Enforce exclusive node allocation, do not share with other jobs
 #SBATCH --exclusive
 
-./delannoy_parallel_fast 13
+./delannoy_parallel_fast 12
