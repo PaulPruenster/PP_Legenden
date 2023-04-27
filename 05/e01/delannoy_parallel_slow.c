@@ -4,10 +4,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-#ifndef OMP_NUM_THREADS
-    #define OMP_NUM_THREADS 8
-#endif
-
 int dellanoy(int i, int j, int n) {
 
     if (i == n || j == n ) {
@@ -54,7 +50,7 @@ int main(int argc, char **argv) {
 	double start_time = omp_get_wtime();
 
     int res = 0;
-    #pragma omp parallel num_threads(OMP_NUM_THREADS)
+    #pragma omp parallel
 	{
 		#pragma omp single
 		res = dellanoy(0, 0, n);
