@@ -5,7 +5,7 @@
 #include <string.h>
 
 #ifndef OMP_NUM_THREADS
-    #define OMP_NUM_THREADS 1
+    #define OMP_NUM_THREADS 8
 #endif
 
 int dellanoy(int i, int j, int n) {
