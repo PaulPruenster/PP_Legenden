@@ -3,6 +3,7 @@
 #include <errno.h>
 #include <omp.h>
 #include <string.h>
+#include <time.h>
 
 #define RESOLUTION_WIDTH 50
 #define RESOLUTION_HEIGHT 50
@@ -21,115 +22,30 @@
 
 void printTemperature(double *m, int N, int M);
 
+int solve_sequential(int N);
+
 // -- simulation code ---
 
 int main(int argc, char **argv) {
     // 'parsing' optional input parameter = problem size
-    int N = 200;
+    int N = 500;
     if (argc > 1) {
         N = atoi(argv[1]);
     }
-    int T = N * 10;
-    printf("Computing heat-distribution for room size %dX%d for T=%d timesteps\n", N, N, T);
+    
 
-    // ---------- setup ----------
+    double startTime = omp_get_wtime();
 
-    // create a buffer for storing temperature fields
-    double *A =  malloc(sizeof(double) * N * N);
+    int ret = solve_sequential(N);
 
-    if(!A) PERROR_GOTO(error_a);
+    double endTime = omp_get_wtime();
 
-    // set up initial conditions in A
-    for (int i = 0; i < N; i++) {
-        for (int j = 0; j < N; j++) {
-            A[IND(i,j)] = 273; // temperature is 0° C everywhere (273 K)
-        }
-    }
+    printf("time: %2.4f seconds\n", endTime-startTime);
 
-    // and there is a heat source
-    int source_x = N / 4;
-    int source_y = N / 4;
-    A[IND(source_x,source_y)] = 273 + 60;
+    return ret;
+   
 
-    for(int i = 0; i < N; i++){
-        for(int j = 0; j < N; j++){
-            printf("%f ", A[IND(i,j)]);
-        }
-        printf("\n");
-    }
-
-    printf("Initial:");
-    printTemperature(A, N, N);
-    printf("\n");
-
-    // ---------- compute ----------
-
-    // create a second buffer for the computation
-    double *B = malloc(sizeof(double) * N * N);
-    if(!B) PERROR_GOTO(error_b);
-    // for each time step ..
-    double left;
-    double right;
-    double up;
-    double down;
-    for (int t = 0; t < T; t++) {
-        // update heat propagation in B
-        for (int i = 0; i < N; i++) {
-            for (int j = 0; j < N; j++) {
-
-                if(i == 0) left = A[IND(i,j)]; else left = A[IND(i-1,j)];
-                if(i == N - 1) right = A[IND(i,j)]; else right = A[IND(i+1,j)];
-                if(j == 0) up = A[IND(i,j)]; else up = A[IND(i,j - 1)];
-                if(j == N - 1) down = A[IND(i,j)]; else down = A[IND(i,j + 1)];
-
-                B[IND(i,j)] = ( left + right + up + down ) * 0.25;
-                
-            }
-        }
-
-        // update heat source
-        B[IND(source_x, source_y)] = 273 + 60;
-
-
-        // copy updated values back to A
-        memcpy(A, B, N * N * sizeof(double));
-
-        // every 1000 steps show intermediate step
-        if (!(t % 1000)) {
-            printf("Step t=%d\n", t);
-            printTemperature(A, N, N);
-            printf("\n");
-        }
-    }
-
-
-    // ---------- check ----------
-
-    printf("Final:");
-    printTemperature(A, N, N);
-    printf("\n");
-
-    // simple verification if nowhere the heat is more then the heat source
-    int success = 1;
-    for (long long i = 0; i < N; i++) {
-        for (long long j = 0; j < N; j++) {
-            double temp = A[IND(i,j)];
-            if (273 <= temp && temp <= 273 + 60)
-                continue;   
-            printf("Error: %f\n", temp);
-            success = 0;
-            break;
-        }
-    }
-
-    printf("Verification: %s\n", (success) ? "OK" : "FAILED");
-
-    // todo ---------- cleanup ----------
-    error_b:
-    free(B);
-    error_a:
-    free(A);
-    return (success) ? EXIT_SUCCESS : EXIT_FAILURE;
+    
 }
 
 void printTemperature(double *m, int N, int M) {
@@ -185,4 +101,104 @@ void printTemperature(double *m, int N, int M) {
         printf("X");
     }
     printf("\n");
+}
+
+
+int solve_sequential(int N){
+
+
+    int T = N * 10;
+    printf("Computing heat-distribution for room size %dX%d for T=%d timesteps\n", N, N, T);
+
+    // ---------- setup ----------
+
+    // create a buffer for storing temperature fields
+    double *A =  malloc(sizeof(double) * N * N);
+
+    if(!A) PERROR_GOTO(error_a);
+
+    // set up initial conditions in A
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            A[IND(i,j)] = 273; // temperature is 0° C everywhere (273 K)
+        }
+    }
+
+    // and there is a heat source
+    int source_x = N / 4;
+    int source_y = N / 4;
+    A[IND(source_x,source_y)] = 273 + 60;
+
+    printf("Initial:");
+    printTemperature(A, N, N);
+    printf("\n");
+
+    // ---------- compute ----------
+
+    // create a second buffer for the computation
+    double *B = malloc(sizeof(double) * N * N);
+    if(!B) PERROR_GOTO(error_b);
+
+
+    double left;
+    double right;
+    double up;
+    double down;
+    for (int t = 0; t < T; t++) {
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+
+                left  = (i == 0)   ? A[IND(i,j)] : A[IND(i-1, j)];
+                right = (i == N-1) ? A[IND(i,j)] : A[IND(i+1, j)];
+                up    = (j == 0)   ? A[IND(i,j)] : A[IND(i, j-1)];
+                down  = (j == N-1) ? A[IND(i,j)] : A[IND(i, j+1)];
+
+                B[IND(i,j)] = ( left + right + up + down ) * 0.25;
+                
+            }
+        }
+
+        // update heat source
+        B[IND(N/4, N/4)] = 273 + 60;
+
+
+        // copy updated values back to A
+        memcpy(A, B, N * N * sizeof(double));
+
+        // every 1000 steps show intermediate step
+        if (!(t % 1000)) {
+            printf("Step t=%d\n", t);
+            printTemperature(A, N, N);
+            printf("\n");
+        }
+    }
+
+
+     // ---------- check ----------
+
+    printf("Final:");
+    printTemperature(A, N, N);
+    printf("\n");
+
+    // simple verification if nowhere the heat is more then the heat source
+    int success = 1;
+    for (long long i = 0; i < N; i++) {
+        for (long long j = 0; j < N; j++) {
+            double temp = A[IND(i,j)];
+            if (273 <= temp && temp <= 273 + 60)
+                continue;   
+            success = 0;
+            break;
+        }
+    }
+
+    printf("Verification: %s\n", (success) ? "OK" : "FAILED");
+
+    // todo ---------- cleanup ----------
+    error_b:
+    free(B);
+    error_a:
+    free(A);
+    return (success) ? EXIT_SUCCESS : EXIT_FAILURE;
+
 }
