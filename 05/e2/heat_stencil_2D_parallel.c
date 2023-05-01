@@ -118,6 +118,7 @@ int solve_parallel(int N){
     if(!A) PERROR_GOTO(error_a);
 
     // set up initial conditions in A
+    #pragma omp parallel for collapse(2)
     for (int i = 0; i < N; i++) {
         for (int j = 0; j < N; j++) {
             A[IND(i,j)] = 273; // temperature is 0° C everywhere (273 K)
@@ -183,13 +184,14 @@ int solve_parallel(int N){
 
     // simple verification if nowhere the heat is more then the heat source
     int success = 1;
+    #pragma omp parallel for collapse(2)
     for (long long i = 0; i < N; i++) {
         for (long long j = 0; j < N; j++) {
             double temp = A[IND(i,j)];
             if (273 <= temp && temp <= 273 + 60)
                 continue;   
             success = 0;
-            break;
+            j = N;
         }
     }
 
