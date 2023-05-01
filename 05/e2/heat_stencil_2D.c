@@ -129,7 +129,7 @@ int solve_sequential(int N){
     int source_y = N / 4;
     A[IND(source_x,source_y)] = 273 + 60;
 
-    printf("Initial:");
+    printf("Initial:\n");
     printTemperature(A, N, N);
     printf("\n");
 
@@ -140,30 +140,30 @@ int solve_sequential(int N){
     if(!B) PERROR_GOTO(error_b);
 
 
-    double left;
-    double right;
-    double up;
-    double down;
+    
     for (int t = 0; t < T; t++) {
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < N; j++) {
 
-                left  = (i == 0)   ? A[IND(i,j)] : A[IND(i-1, j)];
-                right = (i == N-1) ? A[IND(i,j)] : A[IND(i+1, j)];
-                up    = (j == 0)   ? A[IND(i,j)] : A[IND(i, j-1)];
-                down  = (j == N-1) ? A[IND(i,j)] : A[IND(i, j+1)];
-
-                B[IND(i,j)] = ( left + right + up + down ) * 0.25;
+                B[IND(i,j)] = 
+                    ( 
+                        ((i == 0)   ? A[IND(i,j)] : A[IND(i-1, j)]) +
+                        ((i == N-1) ? A[IND(i,j)] : A[IND(i+1, j)]) + 
+                        ((j == 0)   ? A[IND(i,j)] : A[IND(i, j-1)]) + 
+                        ((j == N-1) ? A[IND(i,j)] : A[IND(i, j+1)])
+                    ) * 0.25;
                 
             }
         }
 
         // update heat source
-        B[IND(N/4, N/4)] = 273 + 60;
+        B[IND(source_x,source_y)] = 273 + 60;
 
 
-        // copy updated values back to A
-        memcpy(A, B, N * N * sizeof(double));
+
+        double * temp = B;
+        B = A;
+        A = temp;
 
         // every 1000 steps show intermediate step
         if (!(t % 1000)) {
@@ -176,7 +176,7 @@ int solve_sequential(int N){
 
      // ---------- check ----------
 
-    printf("Final:");
+    printf("Final:\n");
     printTemperature(A, N, N);
     printf("\n");
 

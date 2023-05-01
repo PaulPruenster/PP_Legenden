@@ -1,5 +1,6 @@
 Computing heat-distribution for room size 500X500 for T=5000 timesteps
-Initial:	XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+Initial:
+	XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 	X                                                  X
 	X                                                  X
 	X                                                  X
@@ -322,7 +323,8 @@ Step t=4000
 	X                                                  X
 	XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
-Final:	XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+Final:
+	XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 	X                                                  X
 	X                                                  X
 	X                                                  X
@@ -376,4 +378,4 @@ Final:	XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 	XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 Verification: OK
-time: 15.3193 seconds
+time: 12.1069 seconds
