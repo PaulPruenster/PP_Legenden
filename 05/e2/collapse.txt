@@ -1,0 +1,2 @@
+The collapse clause is used to parallelize nested loops without introducing nested parallelizm. Therefor a number is being 
+mentioned which shouldn't be bigger than the number of nested loops. 
