@@ -76,5 +76,8 @@ int main(int argc, char **argv) {
 	printf("res: %d, time: %2.2f seconds\n", B[n-1], end_time - start_time);
 
 	// cleanup
+	free(A);
+	free(B);
+	
     return EXIT_SUCCESS;
 }

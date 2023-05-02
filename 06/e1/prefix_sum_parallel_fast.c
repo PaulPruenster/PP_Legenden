@@ -8,14 +8,15 @@
 #define OMP_NUM_THREADS 8
 
 
-void exclusivePrefixSum(int *a, int *b, int n) {
+void exclusivePrefixSum(int *A, int *B, int n) {
     int sum = 0;
 
 	// each thread now calculates the prefix sum of a contiguous subarray of the input array
+	// later the prefix sums of each thread are summed up using the reduction, so that we have our end-array b
     #pragma omp parallel for reduction(+:sum)
     for (int i = 1; i < n; i++) {
-        sum += a[i-1];
-        b[i] = sum;
+        sum += A[i-1];
+        B[i] = sum;
     }
 }
 
@@ -68,5 +69,7 @@ int main(int argc, char **argv) {
 	printf("res: %d, time: %2.2f seconds\n", B[n-1], end_time - start_time);
 
 	// cleanup
+	free(A);
+	free(B);
     return EXIT_SUCCESS;
 }
