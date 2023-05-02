@@ -8,17 +8,44 @@
 #define OMP_NUM_THREADS 8
 
 
-void exclusivePrefixSum(int *A, int *B, int n) {
-    int sum = 0;
+void exclusivePrefixSum(int32_t *A, int32_t *B, int n) {
+	// round up chunk size (then the last section is a bit smaller)
+    int chunksize = (n + OMP_NUM_THREADS - 1) / OMP_NUM_THREADS; 
+    int32_t *partial_sums= malloc(sizeof(int32_t) * OMP_NUM_THREADS);
 
-	// each thread now calculates the prefix sum of a contiguous subarray of the input array
-	// later the prefix sums of each thread are summed up using the reduction, so that we have our end-array b
-    #pragma omp parallel for reduction(+:sum)
-    for (int i = 1; i < n; i++) {
-        sum += A[i-1];
-        B[i] = sum;
+    //Each thread calculates the prefix sum of its assigned chunk
+    #pragma omp parallel num_threads(OMP_NUM_THREADS) 
+    {
+		// right here we set the start and endpoint for each chunk
+        int threadNumber = omp_get_thread_num();
+		int start = chunksize * threadNumber;
+        int end = chunksize * (threadNumber + 1) < n ? chunksize * (threadNumber + 1) : n;
+        int sum = 0;
+
+		//start prefix sum calculation for each thread
+        for (int i = start ; i < end; i++) {
+            sum += A[i];
+            B[i+1] = sum;
+        }
+        partial_sums[threadNumber] = sum;
+
+		//it is important to wait here, because we need the partial sums of each of the chunks
+		#pragma omp barrier
+
+        int offset = 0;
+
+		//getting the offset for each chunk and then adding it to B
+        for (int i = 0; i < threadNumber; i++) {
+            offset += partial_sums[i];
+        }
+        for (int i = start; i < end; i++) {
+            B[i] += offset;
+        }
     }
+    free(partial_sums);
 }
+
+
 
 int main(int argc, char **argv) {
 	// handle input
@@ -53,17 +80,9 @@ int main(int argc, char **argv) {
 	}
 
 	double start_time = omp_get_wtime();
-    #pragma omp parallel
-	{
-		#pragma omp single
-		exclusivePrefixSum(A, B, n);
-	}    
-
-	for (int i = 0; i < n; i++)
-	{
-		printf("%d\n", B[i]);
-	}
 	
+	exclusivePrefixSum(A, B, n);
+
 
 	double end_time = omp_get_wtime();
 	printf("res: %d, time: %2.2f seconds\n", B[n-1], end_time - start_time);

@@ -5,7 +5,7 @@
 # Name your job to be able to identify it later
 #SBATCH --job-name mergesort_parallel
 # Redirect output stream to this file
-#SBATCH --output=prefix_parallel_1.log
+#SBATCH --output=prefix_sequential_parallel_8.log
 # Maximum number of tasks (=processes) to start in total
 #SBATCH --ntasks=1
 # Maximum number of tasks (=processes) to start per node
@@ -13,4 +13,4 @@
 # Enforce exclusive node allocation, do not share with other jobs
 #SBATCH --exclusive
 
-./prefix_sum_parallel_fast
+./prefix_sum_sequential 1000000000

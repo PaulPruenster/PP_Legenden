@@ -1,4 +1,4 @@
-CFLAGS = -std=gnu11 -Wall -Werror -Wextra -fopenmp -O3
+CFLAGS = -std=gnu11 -Wall -Werror -Wextra -fopenmp -O3 -lm
 
 .PHONY: all
 all: prefix_sum_sequential prefix_sum_parallel_fast prefix_sum_parallel_slow
