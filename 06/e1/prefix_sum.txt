@@ -1,0 +1,5 @@
+In this exercise we can see that the kind of parallelism we choose can have impacts on performance:
+- In the slow version we used tasks and got a longer wall time then the sequential program (even after optimization, we did not get a better time)
+- in the fast version, we use reduction: here we split the array into parts and each part computes the prefix sum for itself.
+  Whenever they are finished, the reduction is performed, so b[i] gets updated with the actual prefix sum for the whole array.
+  With this we have all our prefix sums stored in the end- array "b" and our endvalue stored in b[n-1]
