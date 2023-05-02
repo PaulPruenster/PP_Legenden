@@ -25,7 +25,7 @@ int dellanoy(int i, int j, int n) {
     #pragma omp task shared(b2)
     b2 = dellanoy(i + 1, j, n);
     
-    #pragma omp task shared(b3)
+    // #pragma omp task shared(b3)
     b3 = dellanoy(i, j + 1, n);
 
     #pragma omp taskwait
