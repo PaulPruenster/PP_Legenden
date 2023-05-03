@@ -13,4 +13,4 @@
 # Enforce exclusive node allocation, do not share with other jobs
 #SBATCH --exclusive
 
-./prefix_sum_sequential 1000000000
+./prefix_sum_parallel_fast 1000000000
