@@ -13,6 +13,7 @@ bool** init_board(long n){
         board[i] = (bool*) malloc(n * sizeof(bool));
         for (u_int j = 0; j<n; j++) {
           board[i][j] = false;
+          printf("inside init: %d\n", board[i][j]);
         }
     }
 
@@ -33,7 +34,7 @@ int n_queens_solutions(long n){
 
   for (u_int i = 0; i<n; i++) {
     for (u_int j = 0; j<n; j++) {
-      printf("%d\n", board[i][j]);
+      printf("inside solutions: %d\n", board[i][j]);
     }
   }
 
@@ -42,26 +43,45 @@ int n_queens_solutions(long n){
   return solutions;
 }
 
-bool currently_possible(bool** board, long n){
-  for (u_int i = 0; i<n; i++) {
-    for (u_int j = 0; j<n; j++) {
+bool currently_possible(bool** board, const long n){
+  for (int i = 0; i<n; i++) {
+    for (int j = 0; j<n; j++) {
       if (board[i][j]) {
         // go straight row (j is fix)
-        for (u_int k = 0; k < n; k++) {
+        for (int k = 0; k < n; k++) {
           if (i == k) continue;;
           if (board[k][j]) return false;
         }
         
         // go straight column (i is fix)
-        for (u_int k = 0; k < n; k++) {
+        for (int k = 0; k < n; k++) {
           if (j == k) continue;
           if (board[i][k]) return false;
         }
 
-        // go left to right diagonal
-        
+        // go left top to right bottom diagonal
+        //find diagonal start
+        int di = (i >= j) ? (i-j) : 0;
+        int dj = (j >= i) ? (j-i) : 0;
 
-        // go right to left diagonal
+        while (di < n && dj < n) {
+          if (di == i && dj == j) continue;
+          if (board[di][dj]) return false;
+          dj++;
+          di++;
+        }
+
+        // go right top to left bottom diagonal
+        //find diagonal start
+        dj = ((i + j) > n) ? n : (i+j);
+        di = ((i + j) <= n) ? 0 : ((i+j)-n);
+
+        while (di < n && dj >= 0) {
+        if (di == i && dj == j) continue;
+        if (board[di][dj]) return false;
+        di++;
+        dj--;
+        }
       }
     }
   }
