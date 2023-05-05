@@ -42,6 +42,32 @@ int n_queens_solutions(long n){
   return solutions;
 }
 
+bool currently_possible(bool** board, long n){
+  for (u_int i = 0; i<n; i++) {
+    for (u_int j = 0; j<n; j++) {
+      if (board[i][j]) {
+        // go straight row (j is fix)
+        for (u_int k = 0; k < n; k++) {
+          if (i == k) continue;;
+          if (board[k][j]) return false;
+        }
+        
+        // go straight column (i is fix)
+        for (u_int k = 0; k < n; k++) {
+          if (j == k) continue;
+          if (board[i][k]) return false;
+        }
+
+        // go left to right diagonal
+        
+
+        // go right to left diagonal
+      }
+    }
+  }
+  return true;
+}
+
 int main(int argc, char **argv) {
   // handle input
   if (argc != 2) {
