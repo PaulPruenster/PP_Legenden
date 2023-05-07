@@ -80,29 +80,41 @@ void clear_board(int **board, const long n) {
   -- adapted from:
 "https://www.geeksforgeeks.org/n-queen-problem-backtracking-3/"
 */
-bool solveNQUtil(int **board, int col, const long n) {
+bool solveNQUtil(int **board, int col, const long n, int starting_row_i) {
   /* base case: If all queens are placed then return true */
   if (col >= n)
     return true;
+  else if (col == 0) { // for starting a new solution
+    for (int i = starting_row_i; i < n; i++) {
+      if (safe_board(board, n, col, i)) {
+        board[i][col] = 1;
 
-  /* Consider this column and try placing this queen in all rows one by one */
-  for (int i = 0; i < n; i++) {
-    /* Check if the queen can be placed on
-    board[i][col] */
-    if (safe_board(board, n, col, i)) {
-      /* Place this queen in board[i][col] */
-      board[i][col] = 1;
+        if (solveNQUtil(board, col + 1, n, 0))
+          return true;
+        board[i][col] = 0; // BACKTRACK
+      }
+    }
+  } else { // just for column 1 and above
+    /* Consider this column and try placing this queen in all rows one by one */
+    for (int i = 0; i < n; i++) {
+      /* Check if the queen can be placed on
+      board[i][col] */
+      if (safe_board(board, n, col, i)) {
+        /* Place this queen in board[i][col] */
+        board[i][col] = 1;
 
-      /* recur to place rest of the queens */
-      if (solveNQUtil(board, col + 1, n))
-        return true;
+        /* recur to place rest of the queens */
+        if (solveNQUtil(board, col + 1, n, 0))
+          return true;
 
-      /* If placing queen in board[i][col]
-      doesn't lead to a solution, then
-      remove queen from board[i][col] */
-      board[i][col] = 0; // BACKTRACK
+        /* If placing queen in board[i][col]
+        doesn't lead to a solution, then
+        remove queen from board[i][col] */
+        board[i][col] = 0; // BACKTRACK
+      }
     }
   }
+
   /* If the queen cannot be placed in any row in
          this column col  then return false */
   return false;
@@ -117,10 +129,17 @@ int n_queens_solutions(const long n) {
   // for example first startpoint i=0 j=0 -- solution
   // next start is i=1 and j=0
 
-  if (solveNQUtil(board, 0, n)) {
-    printf("following is a solution\n");
-    print_board(board, n);
+  for (int starting_row_i = 0; starting_row_i<n; starting_row_i++) {
+    if (solveNQUtil(board, 0, n, starting_row_i)) {
+      //printf("following is a solution\n");
+      //print_board(board, n);
+      solutions++;
+    }
+
+    //reset board
+    clear_board(board, n);
   }
+
 
   free_board(board, n);
   return solutions;
