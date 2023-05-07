@@ -28,59 +28,6 @@ void free_board(int **board, const long n) {
   free(board);
 }
 
-bool currently_possible(int **board, const long n) {
-  for (int i = 0; i < n; i++) {
-    for (int j = 0; j < n; j++) {
-      if (board[i][j]) {
-        // go straight row (j is fix)
-        for (int k = 0; k < n; k++) {
-          if (i == k)
-            continue;
-          if (board[k][j])
-            return false;
-        }
-
-        // go straight column (i is fix)
-        for (int k = 0; k < n; k++) {
-          if (j == k)
-            continue;
-          if (board[i][k])
-            return false;
-        }
-
-        // go left top to right bottom diagonal
-        // find diagonal start
-        int di = (i >= j) ? (i - j) : 0;
-        int dj = (j >= i) ? (j - i) : 0;
-
-        while (di < n && dj < n) {
-          if (di == i && dj == j) {
-          } else if (board[di][dj]) {
-            return false;
-          }
-          dj++;
-          di++;
-        }
-
-        // go right top to left bottom diagonal
-        // find diagonal start
-        dj = ((i + j) > n) ? n : (i + j);
-        di = ((i + j) <= n) ? 0 : ((i + j) - n);
-
-        while (di < n && dj >= 0) {
-          if (di == i && dj == j) {
-          } else if (board[di][dj]) {
-            return false;
-          }
-          di++;
-          dj--;
-        }
-      }
-    }
-  }
-  return true;
-}
-
 // -- adapted from:
 // "https://www.geeksforgeeks.org/n-queen-problem-backtracking-3/"
 bool safe_board(int **board, const long n, int column, int row) {
@@ -163,42 +110,20 @@ bool solveNQUtil(int **board, int col, const long n) {
 
 int n_queens_solutions(const long n) {
   int **board = init_board(n);
-  // int solutions = 0;
-  // int set_queens_counter = 0;
-  // int i_queens[n]; // coordinates in i
-  // int j_queens[n]; // coordinates in j
-  // bool finished = false;
+  int solutions = 0;
 
-  // print_board(board, n);
+  // idea is now to compute a solution .. 
+  // add it to solutions and give it a new starting point
+  // for example first startpoint i=0 j=0 -- solution
+  // next start is i=1 and j=0
 
   if (solveNQUtil(board, 0, n)) {
     printf("following is a solution\n");
     print_board(board, n);
   }
 
-  // iterate over searching current solution
-  /*while (!finished) {
-    for (int i = 0; i < n; i++) {
-      for (int j = 0; j < n; j++) {
-        board[i][j] = 1;
-        i_queens[set_queens_counter] = i;
-        j_queens[set_queens_counter] = j;
-        set_queens_counter++;
-
-        if (currently_possible(board, n)) {
-          if (set_queens_counter >= 8)
-            solutions++;
-          // reset last queen
-          // and set i and j to the values of the queen
-        }
-        board[i][j] = 0;
-      }
-    }
-  }*/
-  // iterate over each field and set queen if possible
-
   free_board(board, n);
-  return 0;
+  return solutions;
 }
 
 int main(int argc, char **argv) {
