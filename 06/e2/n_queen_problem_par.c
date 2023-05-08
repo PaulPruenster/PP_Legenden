@@ -34,34 +34,26 @@ void free_board(int **board, const long n) {
 bool safe_board(int **board, const long n, int column, int row) {
   {
     int i, j;
-    bool returning_value = true;
 
     /* Check this row on left side */
-    #pragma omp task
     for (i = 0; i < column; i++) {
       if (board[row][i])
-        #pragma omp atomic write
-        returning_value = false;
+        return false;
     }
 
     /* Check upper diagonal on left side */
-    #pragma omp task
     for (i = row, j = column; i >= 0 && j >= 0; i--, j--) {
       if (board[i][j])
-        #pragma omp atomic write
-        returning_value = false;
+        return false;
     }
 
     /* Check lower diagonal on left side */
-    #pragma omp task
     for (i = row, j = column; j >= 0 && i < n; i++, j--) {
       if (board[i][j])
-        #pragma omp atomic write
-        returning_value = false;
+        return false;
     }
 
-    #pragma omp taskwait
-    return returning_value;
+    return true;
   }
 }
 
@@ -78,6 +70,7 @@ void solveNQUtil(int **board, int col, const long n) {
     solutions++;
   } else {
     /* Consider this column and try placing this queen in all rows one by one */
+    #pragma omp parallel for
     for (int i = 0; i < n; i++) {
       /* Check if the queen can be placed on
       board[i][col] */
@@ -138,9 +131,13 @@ int main(int argc, char **argv) {
 
   double start_time = omp_get_wtime();
 
-  // func
-
-  n_queens_solutions(n);
+  // func 
+  #pragma omp parallel 
+	{
+		#pragma omp single
+		n_queens_solutions(n);
+	}
+  
 
   double end_time = omp_get_wtime();
 
