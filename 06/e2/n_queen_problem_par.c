@@ -11,6 +11,7 @@ int solutions;
 int **init_board(const long n) {
   int **board = (int **)malloc(n * sizeof(int *));
 
+  #pragma omp parallel for
   for (int i = 0; i < n; i++) {
     board[i] = (int *)malloc(n * sizeof(int));
     for (int j = 0; j < n; j++) {
@@ -22,6 +23,7 @@ int **init_board(const long n) {
 }
 
 void free_board(int **board, const long n) {
+  #pragma omp parallel for
   for (int i = 0; i < n; i++) {
     free(board[i]);
   }
@@ -33,27 +35,37 @@ void free_board(int **board, const long n) {
 // "https://www.geeksforgeeks.org/n-queen-problem-backtracking-3/"
 bool safe_board(int **board, const long n, int column, int row) {
   {
-    int i, j;
+    // int i, j;
+    int returning_value = true;
 
     /* Check this row on left side */
-    for (i = 0; i < column; i++) {
-      if (board[row][i])
-        return false;
+    #pragma omp task
+    for (int i = 0; i < column; i++) {
+      if (board[row][i]){
+        #pragma omp atomic write
+        returning_value = false;
+      }
     }
 
     /* Check upper diagonal on left side */
-    for (i = row, j = column; i >= 0 && j >= 0; i--, j--) {
-      if (board[i][j])
-        return false;
+    #pragma omp task
+    for (int i = row, j = column; i >= 0 && j >= 0; i--, j--) {
+      if (board[i][j]){
+        #pragma omp atomic write
+        returning_value = false;
+      }
     }
 
     /* Check lower diagonal on left side */
-    for (i = row, j = column; j >= 0 && i < n; i++, j--) {
-      if (board[i][j])
-        return false;
+    for (int i = row, j = column; j >= 0 && i < n; i++, j--) {
+      if (board[i][j]){
+        #pragma omp atomic write
+        returning_value = false;
+      }
     }
 
-    return true;
+    #pragma omp taskwait
+    return returning_value;
   }
 }
 
@@ -67,6 +79,7 @@ void print_board(int **board, const long n) {
 }
 
 void clear_board(int **board, const long n) {
+  #pragma omp parallel for collapse(2)
   for (int i = 0; i < n; i++) {
     for (int j = 0; j < n; j++) {
       board[i][j] = 0;
@@ -84,9 +97,11 @@ void clear_board(int **board, const long n) {
 void solveNQUtil(int **board, int col, const long n) {
   /* base case: If all queens are placed then return true */
   if (col >= n){
-    solutions++;
+    #pragma omp atomic write
+    solutions = solutions +1;
   } else {
     /* Consider this column and try placing this queen in all rows one by one */
+    #pragma omp parallel for
     for (int i = 0; i < n; i++) {
       /* Check if the queen can be placed on
       board[i][col] */
@@ -95,6 +110,7 @@ void solveNQUtil(int **board, int col, const long n) {
         board[i][col] = 1;
 
         /* recur to place rest of the queens */
+
         solveNQUtil(board, col + 1, n);
 
         /* If placing queen in board[i][col]
@@ -112,12 +128,11 @@ void solveNQUtil(int **board, int col, const long n) {
 void n_queens_solutions(const long n) {
   int **board = init_board(n);
 
-  // idea is now to compute a solution .. 
-  // add it to solutions and give it a new starting point
-  // for example first startpoint i=0 j=0 -- solution
-  // next start is i=1 and j=0
-
-  solveNQUtil(board, 0, n);
+  #pragma omp parallel
+  {
+    #pragma omp single
+    solveNQUtil(board, 0, n);
+  }
 
   free_board(board, n);
 }
@@ -148,12 +163,12 @@ int main(int argc, char **argv) {
   double start_time = omp_get_wtime();
 
   // func
-
   n_queens_solutions(n);
 
   double end_time = omp_get_wtime();
 
   printf("res: %d, time: %2.2f seconds\n", solutions, end_time - start_time);
 
+  // cleanup
   return EXIT_SUCCESS;
 }
