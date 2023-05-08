@@ -82,12 +82,10 @@ void clear_board(int **board, const long n) {
   -- adapted from:
 "https://www.geeksforgeeks.org/n-queen-problem-backtracking-3/"
 */
-bool solveNQUtil(int **board, int col, const long n) {
+void solveNQUtil(int **board, int col, const long n) {
   /* base case: If all queens are placed then return true */
   if (col >= n){
     solutions++;
-
-    return true;
   } else {
     /* Consider this column and try placing this queen in all rows one by one */
     for (int i = 0; i < n; i++) {
@@ -109,8 +107,7 @@ bool solveNQUtil(int **board, int col, const long n) {
   }
 
   /* If the queen cannot be placed in any row in
-         this column col  then return false */
-  return false;
+         this column col  then return */
 }
 
 void n_queens_solutions(const long n) {
