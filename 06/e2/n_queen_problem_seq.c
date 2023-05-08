@@ -6,6 +6,8 @@
 #include <string.h>
 #include <sys/types.h>
 
+int solutions;
+
 int **init_board(const long n) {
   int **board = (int **)malloc(n * sizeof(int *));
 
@@ -80,21 +82,13 @@ void clear_board(int **board, const long n) {
   -- adapted from:
 "https://www.geeksforgeeks.org/n-queen-problem-backtracking-3/"
 */
-bool solveNQUtil(int **board, int col, const long n, int starting_row_i) {
+bool solveNQUtil(int **board, int col, const long n) {
   /* base case: If all queens are placed then return true */
-  if (col >= n)
-    return true;
-  else if (col == 0) { // for starting a new solution
-    for (int i = starting_row_i; i < n; i++) {
-      if (safe_board(board, n, col, i)) {
-        board[i][col] = 1;
+  if (col >= n){
+    solutions++;
 
-        if (solveNQUtil(board, col + 1, n, 0))
-          return true;
-        board[i][col] = 0; // BACKTRACK
-      }
-    }
-  } else { // just for column 1 and above
+    return true;
+  } else {
     /* Consider this column and try placing this queen in all rows one by one */
     for (int i = 0; i < n; i++) {
       /* Check if the queen can be placed on
@@ -104,8 +98,7 @@ bool solveNQUtil(int **board, int col, const long n, int starting_row_i) {
         board[i][col] = 1;
 
         /* recur to place rest of the queens */
-        if (solveNQUtil(board, col + 1, n, 0))
-          return true;
+        solveNQUtil(board, col + 1, n);
 
         /* If placing queen in board[i][col]
         doesn't lead to a solution, then
@@ -120,29 +113,17 @@ bool solveNQUtil(int **board, int col, const long n, int starting_row_i) {
   return false;
 }
 
-int n_queens_solutions(const long n) {
+void n_queens_solutions(const long n) {
   int **board = init_board(n);
-  int solutions = 0;
 
   // idea is now to compute a solution .. 
   // add it to solutions and give it a new starting point
   // for example first startpoint i=0 j=0 -- solution
   // next start is i=1 and j=0
 
-  for (int starting_row_i = 0; starting_row_i<n; starting_row_i++) {
-    if (solveNQUtil(board, 0, n, starting_row_i)) {
-      //printf("following is a solution\n");
-      //print_board(board, n);
-      solutions++;
-    }
-
-    //reset board
-    clear_board(board, n);
-  }
-
+  solveNQUtil(board, 0, n);
 
   free_board(board, n);
-  return solutions;
 }
 
 int main(int argc, char **argv) {
@@ -172,11 +153,11 @@ int main(int argc, char **argv) {
 
   // func
 
-  int result = n_queens_solutions(n);
+  n_queens_solutions(n);
 
   double end_time = omp_get_wtime();
 
-  printf("res: %d, time: %2.2f seconds\n", result, end_time - start_time);
+  printf("res: %d, time: %2.2f seconds\n", solutions, end_time - start_time);
 
   // cleanup
   return EXIT_SUCCESS;
