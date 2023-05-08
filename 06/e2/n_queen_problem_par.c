@@ -6,13 +6,12 @@
 #include <string.h>
 #include <sys/types.h>
 
-#pragma omp atomic
 int solutions;
 
 int **init_board(const long n) {
   int **board = (int **)malloc(n * sizeof(int *));
 
-  #pragma omp parallel for collapse(2)
+  #pragma omp parallel for
   for (int i = 0; i < n; i++) {
     board[i] = (int *)malloc(n * sizeof(int));
     for (int j = 0; j < n; j++) {
@@ -36,28 +35,33 @@ void free_board(int **board, const long n) {
 // "https://www.geeksforgeeks.org/n-queen-problem-backtracking-3/"
 bool safe_board(int **board, const long n, int column, int row) {
   {
-    int i, j;
-    #pragma omp atomic
-    bool returning_value = true;
+    // int i, j;
+    int returning_value = true;
 
     /* Check this row on left side */
     #pragma omp task
-    for (i = 0; i < column; i++) {
-      if (board[row][i])
+    for (int i = 0; i < column; i++) {
+      if (board[row][i]){
+        #pragma omp atomic write
         returning_value = false;
+      }
     }
 
     /* Check upper diagonal on left side */
     #pragma omp task
-    for (i = row, j = column; i >= 0 && j >= 0; i--, j--) {
-      if (board[i][j])
+    for (int i = row, j = column; i >= 0 && j >= 0; i--, j--) {
+      if (board[i][j]){
+        #pragma omp atomic write
         returning_value = false;
+      }
     }
 
     /* Check lower diagonal on left side */
-    for (i = row, j = column; j >= 0 && i < n; i++, j--) {
-      if (board[i][j])
+    for (int i = row, j = column; j >= 0 && i < n; i++, j--) {
+      if (board[i][j]){
+        #pragma omp atomic write
         returning_value = false;
+      }
     }
 
     #pragma omp taskwait
@@ -93,7 +97,8 @@ void clear_board(int **board, const long n) {
 void solveNQUtil(int **board, int col, const long n) {
   /* base case: If all queens are placed then return true */
   if (col >= n){
-    solutions++;
+    #pragma omp atomic write
+    solutions = solutions +1;
   } else {
     /* Consider this column and try placing this queen in all rows one by one */
     #pragma omp parallel for

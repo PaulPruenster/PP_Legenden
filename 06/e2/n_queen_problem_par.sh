@@ -13,4 +13,4 @@
 # Enforce exclusive node allocation, do not share with other jobs
 #SBATCH --exclusive
 
-OMP_NUM_THREADS=8 ./n_queen_problem_par 12
+OMP_NUM_THREADS=8 ./n_queen_problem_par 20
