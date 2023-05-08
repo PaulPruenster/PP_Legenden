@@ -37,24 +37,26 @@ bool safe_board(int **board, const long n, int column, int row) {
     bool returning_value = true;
 
     /* Check this row on left side */
+    #pragma omp task
     for (i = 0; i < column; i++) {
       if (board[row][i])
         #pragma omp atomic write
-        returning_value++;
+        returning_value = returning_value + 1;
     }
 
     /* Check upper diagonal on left side */
+    #pragma omp task
     for (i = row, j = column; i >= 0 && j >= 0; i--, j--) {
       if (board[i][j])
         #pragma omp atomic write
-        returning_value++;
+        returning_value = returning_value + 1;
     }
 
     /* Check lower diagonal on left side */
     for (i = row, j = column; j >= 0 && i < n; i++, j--) {
       if (board[i][j])
         #pragma omp atomic write
-        returning_value++;
+        returning_value = returning_value + 1;
     }
 
     #pragma omp taskwait
