@@ -57,23 +57,6 @@ bool safe_board(int **board, const long n, int column, int row) {
   }
 }
 
-void print_board(int **board, const long n) {
-  for (int i = 0; i < n; i++) {
-    for (int j = 0; j < n; j++) {
-      printf("%d", board[i][j]);
-    }
-    printf("\n");
-  }
-}
-
-void clear_board(int **board, const long n) {
-  for (int i = 0; i < n; i++) {
-    for (int j = 0; j < n; j++) {
-      board[i][j] = 0;
-    }
-  }
-}
-
 /*
   A recursive utility function to solve N
   Queen problem
