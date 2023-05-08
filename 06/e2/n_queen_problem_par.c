@@ -41,7 +41,7 @@ bool safe_board(int **board, const long n, int column, int row) {
     for (i = 0; i < column; i++) {
       if (board[row][i])
         #pragma omp atomic write
-        returning_value = returning_value + 1;
+        returning_value = false;
     }
 
     /* Check upper diagonal on left side */
@@ -49,14 +49,15 @@ bool safe_board(int **board, const long n, int column, int row) {
     for (i = row, j = column; i >= 0 && j >= 0; i--, j--) {
       if (board[i][j])
         #pragma omp atomic write
-        returning_value = returning_value + 1;
+        returning_value = false;
     }
 
     /* Check lower diagonal on left side */
+    #pragma omp task
     for (i = row, j = column; j >= 0 && i < n; i++, j--) {
       if (board[i][j])
         #pragma omp atomic write
-        returning_value = returning_value + 1;
+        returning_value = false;
     }
 
     #pragma omp taskwait
