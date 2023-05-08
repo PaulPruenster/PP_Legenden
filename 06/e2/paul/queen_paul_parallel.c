@@ -62,6 +62,7 @@ int place(int row,int column)
 //function to check for proper positioning of queen
 void queen(int row,int n)
 {
+    #pragma omp parallel for
     for(int column=1;column<=n;++column)
     {
         if(place(row,column))
