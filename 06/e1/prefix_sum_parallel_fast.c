@@ -5,16 +5,16 @@
 #include <string.h>
 #include <stdint.h>
 
-#define OMP_NUM_THREADS 8
 
 
 void exclusivePrefixSum(int32_t *A, int32_t *B, int n) {
 	// round up chunk size (then the last section is a bit smaller)
-    int chunksize = (n + OMP_NUM_THREADS - 1) / OMP_NUM_THREADS; 
-    int32_t *partial_sums= malloc(sizeof(int32_t) * OMP_NUM_THREADS);
+	int thread_nums = omp_get_num_threads();
+    int chunksize = (n + thread_nums - 1) / thread_nums; 
+    int32_t *partial_sums= malloc(sizeof(int32_t) * thread_nums);
 
     //Each thread calculates the prefix sum of its assigned chunk
-    #pragma omp parallel num_threads(OMP_NUM_THREADS) 
+    #pragma omp parallel
     {
 		// right here we set the start and endpoint for each chunk
         int threadNumber = omp_get_thread_num();
