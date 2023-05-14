@@ -1,0 +1,12 @@
+In this version we need to include the header: "xmmintrin.h". This header helps us to perform
+SIMD (Single Instruction, multiple Data) on modern processors. So we can perform more than just 
+one instruction on one data.
+
+We use __m128, which represents a 128-bit register used for SIMD. If we now perform our operations
+we can see that the assertion fails. This happens, because we load a 128-bit register for every value in 
+our loop. Float is 32-bit, so we can perform the SIMD- instruction on 4 float values at the same time.
+So we change the inner loop "inrement-condition" to i +=4.
+
+Now we can see that the assertion is true and we have a fast program.
+
+This exercise differs from the other exercises in terms of SIMD: we perform a single instruction on multiple data.
