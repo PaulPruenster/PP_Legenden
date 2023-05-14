@@ -3,6 +3,8 @@
 #include <omp.h>
 #include <math.h>
 
+// https://www.thecrazyprogrammer.com/2015/03/c-program-for-n-queens-problem-using-backtracking.html
+
 int board[20],count;
 
 void queen(int row,int n);
