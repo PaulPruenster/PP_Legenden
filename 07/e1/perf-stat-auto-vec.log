@@ -1,0 +1,72 @@
+size = 2048, time = 1.873314
+
+ Performance counter stats for './e1_auto-vectorization 1':
+
+                 0      rC701:u                                                     
+
+       1.886228404 seconds time elapsed
+
+       1.872943000 seconds user
+       0.002998000 seconds sys
+
+
+size = 2048, time = 1.873095
+
+ Performance counter stats for './e1_auto-vectorization 1':
+
+                 0      rC702:u                                                     
+
+       1.875379436 seconds time elapsed
+
+       1.872747000 seconds user
+       0.001999000 seconds sys
+
+
+size = 2048, time = 1.873160
+
+ Performance counter stats for './e1_auto-vectorization 1':
+
+             4,437      rC704:u                                                     
+
+       1.875689957 seconds time elapsed
+
+       1.872007000 seconds user
+       0.002998000 seconds sys
+
+
+size = 2048, time = 1.873484
+
+ Performance counter stats for './e1_auto-vectorization 1':
+
+           122,213      rC708:u                                                     
+
+       1.875905241 seconds time elapsed
+
+       1.874327000 seconds user
+       0.001000000 seconds sys
+
+
+size = 2048, time = 1.873171
+
+ Performance counter stats for './e1_auto-vectorization 1':
+
+     1,025,004,688      rC710:u                                                     
+
+       1.875661616 seconds time elapsed
+
+       1.872997000 seconds user
+       0.001998000 seconds sys
+
+
+size = 2048, time = 1.873199
+
+ Performance counter stats for './e1_auto-vectorization 1':
+
+                 0      rC71F:u                                                     
+
+       1.875407328 seconds time elapsed
+
+       1.872981000 seconds user
+       0.001999000 seconds sys
+
+

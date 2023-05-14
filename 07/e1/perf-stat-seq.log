@@ -1,0 +1,72 @@
+size = 2048, time = 2.482505
+
+ Performance counter stats for './e1_sequenziell 1':
+
+                 0      rC701:u                                                     
+
+       2.486111147 seconds time elapsed
+
+       2.482492000 seconds user
+       0.001999000 seconds sys
+
+
+size = 2048, time = 2.482533
+
+ Performance counter stats for './e1_sequenziell 1':
+
+                 0      rC702:u                                                     
+
+       2.485402405 seconds time elapsed
+
+       2.483967000 seconds user
+       0.001000000 seconds sys
+
+
+size = 2048, time = 2.483002
+
+ Performance counter stats for './e1_sequenziell 1':
+
+             9,990      rC704:u                                                     
+
+       2.485909967 seconds time elapsed
+
+       2.482971000 seconds user
+       0.001999000 seconds sys
+
+
+size = 2048, time = 2.482215
+
+ Performance counter stats for './e1_sequenziell 1':
+
+           129,878      rC708:u                                                     
+
+       2.484783377 seconds time elapsed
+
+       2.483028000 seconds user
+       0.001000000 seconds sys
+
+
+size = 2048, time = 2.482358
+
+ Performance counter stats for './e1_sequenziell 1':
+
+     4,100,012,124      rC710:u                                                     
+
+       2.485103893 seconds time elapsed
+
+       2.482293000 seconds user
+       0.001999000 seconds sys
+
+
+size = 2048, time = 2.482035
+
+ Performance counter stats for './e1_sequenziell 1':
+
+                 0      rC71F:u                                                     
+
+       2.484516887 seconds time elapsed
+
+       2.482859000 seconds user
+       0.001000000 seconds sys
+
+
