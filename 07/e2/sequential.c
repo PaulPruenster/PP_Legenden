@@ -42,11 +42,11 @@ int main(int argc, char *argv[]) {
 	    double end_time = omp_get_wtime();
 
         
-        if (size == 2048){
+        /*if (size == 2048){
             for (int j = 0; i < 2048; ++i){
                 printf("%f ", a[j]);
             }
-        }
+        }*/
         
         
         double elapsed_time = end_time - start_time;
