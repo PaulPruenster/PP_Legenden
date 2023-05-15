@@ -3,3 +3,12 @@ The differece is a little under double the time.
 
 The solutions are both the same so the computation is correct from the omp version.
 
+The performance is verified by the perf-tool.
+
+float-double:
+
+
+
+e1 vs e2: 
+When comparing e1 and e2 -- we can see that both implementations have
+the same execution time.
