@@ -6,8 +6,7 @@ The solutions are both the same so the computation is correct from the omp versi
 The performance is verified by the perf-tool.
 
 float-double:
-
-
+Now the time of the sequential solution is way faster.
 
 e1 vs e2: 
 When comparing e1 and e2 -- we can see that both implementations have
