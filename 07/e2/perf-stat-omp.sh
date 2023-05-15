@@ -13,10 +13,10 @@
 # Enforce exclusive node allocation, do not share with other jobs
 #SBATCH --exclusive
 
-perf stat -e rC701 ./omp_vector 1
-perf stat -e rC702 ./omp_vector 1
-perf stat -e rC704 ./omp_vector 1
-perf stat -e rC708 ./omp_vector 1
-perf stat -e rC710 ./omp_vector 1
-perf stat -e rC71F ./omp_vector 1
+perf stat -e r01C7 ./omp_vector 1
+perf stat -e r02C7 ./omp_vector 1
+perf stat -e r04C7 ./omp_vector 1
+perf stat -e r08C7 ./omp_vector 1
+perf stat -e r10C7 ./omp_vector 1
+perf stat -e r1FC7 ./omp_vector 1
 
