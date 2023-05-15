@@ -1,4 +1,4 @@
-CFLAGS = -std=gnu11 -Wall -Werror -Wextra -fopenmp  -O1
+CFLAGS = -std=gnu11 -Wall -Wextra -fopenmp  -O1
 
 .PHONY: all
 all: omp_vector sequential
