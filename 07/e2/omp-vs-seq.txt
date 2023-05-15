@@ -1,0 +1,5 @@
+The sequential solution is slower thant the omp-vectoriced version.
+The differece is a little under double the time.
+
+The solutions are both the same so the computation is correct from the omp version.
+

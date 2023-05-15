@@ -7,7 +7,7 @@
 #define REPETITIONS 1000000
 
 void multiply_add(float *a, float *b, float *c, int size) {
-  #pragma omp simd //simdlen(size)
+  #pragma omp simd //simdlen(2048)
     for (int i = 0; i < size; ++i) {
         a[i] += b[i] * c[i];
     }
@@ -42,13 +42,13 @@ int main(int argc, char *argv[]) {
         }
 	    double end_time = omp_get_wtime();
 
-        /*
+        
         if (size == 2048){
             for (int j = 0; i < 2048; ++i){
                 printf("%f ", a[j]);
             }
         }
-        */
+        
         
         double elapsed_time = end_time - start_time;
 
