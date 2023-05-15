@@ -1,72 +1,72 @@
-size = 2048, time = 1.726868
+size = 2048, time = 1.726624
 
  Performance counter stats for './omp_vector 1':
 
-                 0      rC701:u                                                     
+     1,024,000,051      r01C7:u                                                     
 
-       1.731338771 seconds time elapsed
+       1.737417725 seconds time elapsed
 
-       1.727796000 seconds user
+       1.727517000 seconds user
        0.002000000 seconds sys
 
 
-size = 2048, time = 1.726792
+size = 2048, time = 1.726839
 
  Performance counter stats for './omp_vector 1':
 
-                 0      rC702:u                                                     
+             2,049      r02C7:u                                                     
 
-       1.729978707 seconds time elapsed
+       1.729971554 seconds time elapsed
 
-       1.726017000 seconds user
-       0.002998000 seconds sys
-
-
-size = 2048, time = 1.726450
-
- Performance counter stats for './omp_vector 1':
-
-            15,765      rC704:u                                                     
-
-       1.729683821 seconds time elapsed
-
-       1.727754000 seconds user
-       0.000999000 seconds sys
+       1.727018000 seconds user
+       0.002000000 seconds sys
 
 
-size = 2048, time = 1.726725
+size = 2048, time = 1.726526
 
  Performance counter stats for './omp_vector 1':
 
-           109,828      rC708:u                                                     
+                 0      r04C7:u                                                     
 
-       1.729545861 seconds time elapsed
+       1.729531129 seconds time elapsed
 
-       1.727740000 seconds user
-       0.000999000 seconds sys
-
-
-size = 2048, time = 1.726517
-
- Performance counter stats for './omp_vector 1':
-
-     1,025,064,339      rC710:u                                                     
-
-       1.729481718 seconds time elapsed
-
-       1.728519000 seconds user
-       0.000000000 seconds sys
-
-
-size = 2048, time = 1.726626
-
- Performance counter stats for './omp_vector 1':
-
-                 0      rC71F:u                                                     
-
-       1.729622993 seconds time elapsed
-
-       1.725788000 seconds user
+       1.725799000 seconds user
        0.002997000 seconds sys
+
+
+size = 2048, time = 1.727811
+
+ Performance counter stats for './omp_vector 1':
+
+     2,048,000,058      r08C7:u                                                     
+
+       1.730455325 seconds time elapsed
+
+       1.728737000 seconds user
+       0.001000000 seconds sys
+
+
+size = 2048, time = 1.727048
+
+ Performance counter stats for './omp_vector 1':
+
+     2,048,000,146      r10C7:u                                                     
+
+       1.729972719 seconds time elapsed
+
+       1.727081000 seconds user
+       0.002000000 seconds sys
+
+
+size = 2048, time = 1.726431
+
+ Performance counter stats for './omp_vector 1':
+
+     3,072,002,259      r1FC7:u                                                     
+
+       1.730361757 seconds time elapsed
+
+       1.726473000 seconds user
+       0.001999000 seconds sys
 
 

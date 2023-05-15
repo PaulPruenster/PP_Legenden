@@ -1,72 +1,72 @@
-size = 2048, time = 2.481910
+size = 2048, time = 2.481917
 
  Performance counter stats for './sequential 1':
 
-                 0      rC701:u                                                     
+                51      r01C7:u                                                     
 
-       2.485457849 seconds time elapsed
+       2.486425942 seconds time elapsed
 
-       2.482120000 seconds user
+       2.483238000 seconds user
        0.002000000 seconds sys
 
 
-size = 2048, time = 2.482354
+size = 2048, time = 2.482207
 
  Performance counter stats for './sequential 1':
 
-                 0      rC702:u                                                     
+     8,192,002,049      r02C7:u                                                     
 
-       2.485702884 seconds time elapsed
+       2.485767269 seconds time elapsed
 
-       2.482648000 seconds user
-       0.001998000 seconds sys
-
-
-size = 2048, time = 2.482288
-
- Performance counter stats for './sequential 1':
-
-            41,052      rC704:u                                                     
-
-       2.485393381 seconds time elapsed
-
-       2.482579000 seconds user
-       0.001999000 seconds sys
+       2.483507000 seconds user
+       0.000999000 seconds sys
 
 
-size = 2048, time = 2.482066
+size = 2048, time = 2.482121
 
  Performance counter stats for './sequential 1':
 
-           132,412      rC708:u                                                     
+                 0      r04C7:u                                                     
 
-       2.484789316 seconds time elapsed
+       2.485222764 seconds time elapsed
 
-       2.482122000 seconds user
-       0.002000000 seconds sys
-
-
-size = 2048, time = 2.481956
-
- Performance counter stats for './sequential 1':
-
-     4,100,015,239      rC710:u                                                     
-
-       2.484795539 seconds time elapsed
-
-       2.481014000 seconds user
-       0.002998000 seconds sys
+       2.481254000 seconds user
+       0.002999000 seconds sys
 
 
-size = 2048, time = 2.482084
+size = 2048, time = 2.482322
 
  Performance counter stats for './sequential 1':
 
-                 0      rC71F:u                                                     
+                58      r08C7:u                                                     
 
-       2.485117124 seconds time elapsed
+       2.485027745 seconds time elapsed
 
-       2.482270000 seconds user
+       2.483250000 seconds user
+       0.001000000 seconds sys
+
+
+size = 2048, time = 2.482059
+
+ Performance counter stats for './sequential 1':
+
+               146      r10C7:u                                                     
+
+       2.484940399 seconds time elapsed
+
+       2.483156000 seconds user
+       0.001000000 seconds sys
+
+
+size = 2048, time = 2.482032
+
+ Performance counter stats for './sequential 1':
+
+     8,192,002,259      r1FC7:u                                                     
+
+       2.484839224 seconds time elapsed
+
+       2.482101000 seconds user
        0.001999000 seconds sys
 
 

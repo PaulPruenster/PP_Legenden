@@ -1,72 +1,72 @@
-size = 2048, time = 1.873314
+size = 2048, time = 1.728268
 
  Performance counter stats for './e1_auto-vectorization 1':
 
-                 0      rC701:u                                                     
+     1,024,001,078      r01C7:u                                                     
 
-       1.886228404 seconds time elapsed
+       1.732805044 seconds time elapsed
 
-       1.872943000 seconds user
-       0.002998000 seconds sys
-
-
-size = 2048, time = 1.873095
-
- Performance counter stats for './e1_auto-vectorization 1':
-
-                 0      rC702:u                                                     
-
-       1.875379436 seconds time elapsed
-
-       1.872747000 seconds user
-       0.001999000 seconds sys
+       1.729246000 seconds user
+       0.002001000 seconds sys
 
 
-size = 2048, time = 1.873160
+size = 2048, time = 1.728326
 
  Performance counter stats for './e1_auto-vectorization 1':
 
-             4,437      rC704:u                                                     
+                 0      r02C7:u                                                     
 
-       1.875689957 seconds time elapsed
+       1.731578777 seconds time elapsed
 
-       1.872007000 seconds user
-       0.002998000 seconds sys
-
-
-size = 2048, time = 1.873484
-
- Performance counter stats for './e1_auto-vectorization 1':
-
-           122,213      rC708:u                                                     
-
-       1.875905241 seconds time elapsed
-
-       1.874327000 seconds user
-       0.001000000 seconds sys
+       1.730433000 seconds user
+       0.000000000 seconds sys
 
 
-size = 2048, time = 1.873171
+size = 2048, time = 1.728383
 
  Performance counter stats for './e1_auto-vectorization 1':
 
-     1,025,004,688      rC710:u                                                     
+                 0      r04C7:u                                                     
 
-       1.875661616 seconds time elapsed
+       1.731381670 seconds time elapsed
 
-       1.872997000 seconds user
-       0.001998000 seconds sys
+       1.729533000 seconds user
+       0.000999000 seconds sys
 
 
-size = 2048, time = 1.873199
+size = 2048, time = 1.728280
 
  Performance counter stats for './e1_auto-vectorization 1':
 
-                 0      rC71F:u                                                     
+     2,048,001,594      r08C7:u                                                     
 
-       1.875407328 seconds time elapsed
+       1.731246407 seconds time elapsed
 
-       1.872981000 seconds user
-       0.001999000 seconds sys
+       1.727480000 seconds user
+       0.002999000 seconds sys
+
+
+size = 2048, time = 1.728246
+
+ Performance counter stats for './e1_auto-vectorization 1':
+
+     2,048,001,684      r10C7:u                                                     
+
+       1.731007498 seconds time elapsed
+
+       1.728248000 seconds user
+       0.002000000 seconds sys
+
+
+size = 2048, time = 1.728346
+
+ Performance counter stats for './e1_auto-vectorization 1':
+
+     3,072,002,775      r1FC7:u                                                     
+
+       1.730995540 seconds time elapsed
+
+       1.730361000 seconds user
+       0.000000000 seconds sys
 
 
