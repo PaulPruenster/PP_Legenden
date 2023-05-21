@@ -3,9 +3,9 @@
 # Execute job in the partition "lva" unless you have special requirements.
 #SBATCH --partition=lva
 # Name your job to be able to identify it later
-#SBATCH --job-name sequential
+#SBATCH --job-name omp_vector_double
 # Redirect output stream to this file
-#SBATCH --output=sequential.log
+#SBATCH --output=omp_vector_double.log
 # Maximum number of tasks (=processes) to start in total
 #SBATCH --ntasks=1
 # Maximum number of tasks (=processes) to start per node
@@ -13,4 +13,4 @@
 # Enforce exclusive node allocation, do not share with other jobs
 #SBATCH --exclusive
 
- ./sequential 1
+ ./omp_vector_double 1

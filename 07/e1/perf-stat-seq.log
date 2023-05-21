@@ -1,72 +1,72 @@
-size = 2048, time = 2.482505
+size = 2048, time = 2.482277
 
  Performance counter stats for './e1_sequenziell 1':
 
-                 0      rC701:u                                                     
+                51      r01C7:u                                                     
 
-       2.486111147 seconds time elapsed
+       2.486507056 seconds time elapsed
 
-       2.482492000 seconds user
-       0.001999000 seconds sys
+       2.483092000 seconds user
+       0.002000000 seconds sys
 
 
-size = 2048, time = 2.482533
+size = 2048, time = 2.481968
 
  Performance counter stats for './e1_sequenziell 1':
 
-                 0      rC702:u                                                     
+     8,192,002,049      r02C7:u                                                     
 
-       2.485402405 seconds time elapsed
+       2.485137211 seconds time elapsed
 
-       2.483967000 seconds user
+       2.483233000 seconds user
        0.001000000 seconds sys
 
 
-size = 2048, time = 2.483002
+size = 2048, time = 2.482428
 
  Performance counter stats for './e1_sequenziell 1':
 
-             9,990      rC704:u                                                     
+                 0      r04C7:u                                                     
 
-       2.485909967 seconds time elapsed
+       2.485453604 seconds time elapsed
 
-       2.482971000 seconds user
+       2.482525000 seconds user
        0.001999000 seconds sys
 
 
-size = 2048, time = 2.482215
+size = 2048, time = 2.482168
 
  Performance counter stats for './e1_sequenziell 1':
 
-           129,878      rC708:u                                                     
+                58      r08C7:u                                                     
 
-       2.484783377 seconds time elapsed
+       2.485075069 seconds time elapsed
 
-       2.483028000 seconds user
-       0.001000000 seconds sys
-
-
-size = 2048, time = 2.482358
-
- Performance counter stats for './e1_sequenziell 1':
-
-     4,100,012,124      rC710:u                                                     
-
-       2.485103893 seconds time elapsed
-
-       2.482293000 seconds user
+       2.482393000 seconds user
        0.001999000 seconds sys
 
 
-size = 2048, time = 2.482035
+size = 2048, time = 2.481886
 
  Performance counter stats for './e1_sequenziell 1':
 
-                 0      rC71F:u                                                     
+               146      r10C7:u                                                     
 
-       2.484516887 seconds time elapsed
+       2.484898773 seconds time elapsed
 
-       2.482859000 seconds user
-       0.001000000 seconds sys
+       2.481974000 seconds user
+       0.001999000 seconds sys
+
+
+size = 2048, time = 2.482152
+
+ Performance counter stats for './e1_sequenziell 1':
+
+     8,192,002,259      r1FC7:u                                                     
+
+       2.485274725 seconds time elapsed
+
+       2.484311000 seconds user
+       0.000000000 seconds sys
 
 

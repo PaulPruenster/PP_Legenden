@@ -13,10 +13,10 @@
 # Enforce exclusive node allocation, do not share with other jobs
 #SBATCH --exclusive
 
-perf stat -e rC701 ./e1_sequenziell 1
-perf stat -e rC702 ./e1_sequenziell 1
-perf stat -e rC704 ./e1_sequenziell 1
-perf stat -e rC708 ./e1_sequenziell 1
-perf stat -e rC710 ./e1_sequenziell 1
-perf stat -e rC71F ./e1_sequenziell 1
+perf stat -e r01C7 ./e1_sequenziell 1
+perf stat -e r02C7 ./e1_sequenziell 1
+perf stat -e r04C7 ./e1_sequenziell 1
+perf stat -e r08C7 ./e1_sequenziell 1
+perf stat -e r10C7 ./e1_sequenziell 1
+perf stat -e r1FC7 ./e1_sequenziell 1
 

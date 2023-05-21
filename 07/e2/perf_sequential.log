@@ -1,0 +1,72 @@
+size = 2048, time = 2.481917
+
+ Performance counter stats for './sequential 1':
+
+                51      r01C7:u                                                     
+
+       2.486425942 seconds time elapsed
+
+       2.483238000 seconds user
+       0.002000000 seconds sys
+
+
+size = 2048, time = 2.482207
+
+ Performance counter stats for './sequential 1':
+
+     8,192,002,049      r02C7:u                                                     
+
+       2.485767269 seconds time elapsed
+
+       2.483507000 seconds user
+       0.000999000 seconds sys
+
+
+size = 2048, time = 2.482121
+
+ Performance counter stats for './sequential 1':
+
+                 0      r04C7:u                                                     
+
+       2.485222764 seconds time elapsed
+
+       2.481254000 seconds user
+       0.002999000 seconds sys
+
+
+size = 2048, time = 2.482322
+
+ Performance counter stats for './sequential 1':
+
+                58      r08C7:u                                                     
+
+       2.485027745 seconds time elapsed
+
+       2.483250000 seconds user
+       0.001000000 seconds sys
+
+
+size = 2048, time = 2.482059
+
+ Performance counter stats for './sequential 1':
+
+               146      r10C7:u                                                     
+
+       2.484940399 seconds time elapsed
+
+       2.483156000 seconds user
+       0.001000000 seconds sys
+
+
+size = 2048, time = 2.482032
+
+ Performance counter stats for './sequential 1':
+
+     8,192,002,259      r1FC7:u                                                     
+
+       2.484839224 seconds time elapsed
+
+       2.482101000 seconds user
+       0.001999000 seconds sys
+
+

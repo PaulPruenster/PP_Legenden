@@ -1,0 +1,12 @@
+SIMD_INST_RETIRED.PACKED_SINGLE (event code C7, unit mask 01): Measures the number of retired packed single-precision SIMD instructions (i.e., instructions that operate on four single-precision floating-point values at once).
+--> sequetial is way better
+SIMD_INST_RETIRED.SCALAR_SINGLE (event code C7, unit mask 02): Measures the number of retired scalar single-precision SIMD instructions (i.e., instructions that operate on a single single-precision floating-point value at a time).
+--> 8000 million to 0 in the auto vector solution
+SIMD_INST_RETIRED.PACKED_DOUBLE (event code C7, unit mask 04): Measures the number of retired packed double-precision SIMD instructions (i.e., instructions that operate on two double-precision floating-point values at once).
+--> both 0
+SIMD_INST_RETIRED.SCALAR_DOUBLE (event code C7, unit mask 08): Measures the number of retired scalar double-precision SIMD instructions (i.e., instructions that operate on a single double-precision floating-point value at a time).
+--> way less in the sequetial
+SIMD_INST_RETIRED.VECTOR (event code C7, unit mask 10): Measures the number of retired vector SIMD instructions (i.e., any SIMD instruction that operates on multiple data elements at once).
+--> way less in the sequetial
+SIMD_INST_RETIRED.ANY (event code C7, unit mask 1F): Measures the total number of retired SIMD instructions, regardless of their type.
+--> about half the instructions in the vector solution

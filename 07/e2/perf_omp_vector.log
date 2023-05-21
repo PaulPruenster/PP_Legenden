@@ -1,0 +1,72 @@
+size = 2048, time = 1.726624
+
+ Performance counter stats for './omp_vector 1':
+
+     1,024,000,051      r01C7:u                                                     
+
+       1.737417725 seconds time elapsed
+
+       1.727517000 seconds user
+       0.002000000 seconds sys
+
+
+size = 2048, time = 1.726839
+
+ Performance counter stats for './omp_vector 1':
+
+             2,049      r02C7:u                                                     
+
+       1.729971554 seconds time elapsed
+
+       1.727018000 seconds user
+       0.002000000 seconds sys
+
+
+size = 2048, time = 1.726526
+
+ Performance counter stats for './omp_vector 1':
+
+                 0      r04C7:u                                                     
+
+       1.729531129 seconds time elapsed
+
+       1.725799000 seconds user
+       0.002997000 seconds sys
+
+
+size = 2048, time = 1.727811
+
+ Performance counter stats for './omp_vector 1':
+
+     2,048,000,058      r08C7:u                                                     
+
+       1.730455325 seconds time elapsed
+
+       1.728737000 seconds user
+       0.001000000 seconds sys
+
+
+size = 2048, time = 1.727048
+
+ Performance counter stats for './omp_vector 1':
+
+     2,048,000,146      r10C7:u                                                     
+
+       1.729972719 seconds time elapsed
+
+       1.727081000 seconds user
+       0.002000000 seconds sys
+
+
+size = 2048, time = 1.726431
+
+ Performance counter stats for './omp_vector 1':
+
+     3,072,002,259      r1FC7:u                                                     
+
+       1.730361757 seconds time elapsed
+
+       1.726473000 seconds user
+       0.001999000 seconds sys
+
+

@@ -6,7 +6,8 @@
 
 #define REPETITIONS 1000000
 
-void multiply_add(float *a, float *b, float *c, int size) {
+void multiply_add(double *a, double *b, double *c, int size) {
+  #pragma omp simd //simdlen(2048)
     for (int i = 0; i < size; ++i) {
         a[i] += b[i] * c[i];
     }
@@ -24,9 +25,9 @@ int main(int argc, char *argv[]) {
 
     for (int i = 0; i < n; ++i) {
         int size = size_array[i];
-        float *a = (float *) malloc(size * sizeof(float));
-        float *b = (float *) malloc(size * sizeof(float));
-        float *c = (float *) malloc(size * sizeof(float));
+        double *a = (double *) malloc(size * sizeof(double));
+        double *b = (double *) malloc(size * sizeof(double));
+        double *c = (double *) malloc(size * sizeof(double));
 
         for (int i = 0; i < size; ++i) {
             a[i] = 0.0f;
