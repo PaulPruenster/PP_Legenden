@@ -1,0 +1,34 @@
+Each sample counts as 0.01 seconds.
+  %   cumulative   self              self     total           
+ time   seconds   seconds    calls  ms/call  ms/call  name    
+ 49.73      8.61     8.61      147    58.59    63.00  resid
+ 22.24     12.46     3.85      168    22.92    26.74  psinv
+  8.66     13.96     1.50      147    10.21    14.02  rprj3
+  8.66     15.46     1.50      147    10.21    10.21  interp
+  7.16     16.71     1.24   131072     0.01     0.01  vranlc
+  3.52     17.32     0.61      485     1.26     3.82  norm2u3
+  0.06     17.33     0.01                             mg3P.constprop.2
+  0.00     17.33     0.00   131642     0.00     0.00  randlc
+  0.00     17.33     0.00        4     0.00     0.00  wtime_
+    
+Here we can see the functions that take a lot of time. 
+We can instantly see that the resid-function takes about 50% of the time and the 
+psinv-function which takes 22% of the time. So our goal should be to minimize their times
+and find a way to parallelize the functions.
+
+We also receive another table where we can see which function is called by which function.
+(The functions that are above the function are the function that call this function and 
+the functions below the function name are the function that are being called by the function itself)
+
+Further, we can see below, that there a re indexes for our functions in the program.
+Now we can look at the other table again and understand what the different attributes of the table mean:
+
+index: the index below that indicates the function that we are analyzinh right now
+% time: the time the function takes to be executed
+self: the real time in seconds the function takes to be executed
+children: the time the children of the function take to be executed
+called: This is the amount of times the function got called 
+name: the actual name of the function. (with the feature mentioned in line 19)
+
+So our primary goal is to parallelize resid and psinv and if we can find any other similar patterns
+in the other function, we can also try to parallelize them.
