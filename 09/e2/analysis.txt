@@ -1,0 +1,57 @@
+For the given program we compile with the flag: -fopt-info-vec-all-internals
+
+This flag allows us to know more about how dependence analysis and vectorization works like.
+In the command line we receive the output and the linenumber where the actions happen. 
+
+We can see that the output refers to loop analysis and the for-loops are being analyzed.
+
+In the loop in line 27 we can see that the loop could not get vectorized. The missed- statement tells us
+which line is affected: The problem is the "printf"- statement in line. The problem is obvious, because
+the printf-statement does output on a stream - this can't be vectorized.
+
+The next loop is line 22:
+analysis.c:23:25: missed:   not vectorized: not suitable for gather load _5 = a[_4];
+analysis.c:22:26: missed:  bad data references.
+
+So also this for-loop can't be vectorized. and this is because of bad data references.
+If we look at our code we can see the line "a[i] = a[i%argc];"
+This operation makes it challenging to parallelize and vectorize because the result of iteration n
+is dependent on the result of iteration n-1
+
+The next loop is line 10:
+
+This is the first for loop where we can see that there is not problem with dependecies and the loop 
+can actually be vectorized. In the output we see every iteration of the loop and we can also see there
+are only a few missed statements.
+We also receive a lot of analysis on this loop, because it got vectorized:
+
+analysis.c:10:26: note:  Cost model analysis: 
+  Vector inside of loop cost: 12
+  Vector prologue cost: 4
+  Vector epilogue cost: 0
+  Scalar iteration cost: 12
+  Scalar outside cost: 0
+  Vector outside cost: 4
+  prologue iterations: 0
+  epilogue iterations: 0
+  Calculated minimum iters for profitability: 1
+analysis.c:10:26: note:    Runtime profitability threshold = 4
+analysis.c:10:26: note:    Static estimate profitability threshold = 4
+
+The "Vector inside of loop cost" tells us the cost of executing vector instructions inside the loop.
+The "Vector prologue cost" and "Vector epilogue cost" tell us the costs associated with vectorization before and after the loop.
+"Calculated minimum iters for profitability" tells us after what loop iteration we have a profitability.
+"Runtime profitability threshold" and "Static estimate profitability threshold" tells us the limit of vectorization.
+So if we would hav <4 we would perform vectorization (which is our case)
+
+
+At the end we can also see that the loop got vectorized:
+analysis.c:10:26: note:  LOOP VECTORIZED
+
+For the last 2 loops we don't receive that much information, but we know that there is no vectorization,
+because it tells us the following:
+analysis.c:15:22: missed: not vectorized: more than one data ref in stmt: MEM <unsigned char[4096]> [(char * {ref-all})&b] = MEM <unsigned char[4096]> [(char * {ref-all})&a];
+analysis.c:19:24: missed: statement clobbers memory: __builtin_memmove (&a, _14, 4080);
+
+Also for the main-function itself we receive the output, that it can't be vectorized:
+analysis.c:5:5: missed:   not vectorized: no vectype for stmt: MEM <vector(4) int> [(int *)vectp_a.4_56] = vect_cst__46;
