@@ -1,0 +1,50 @@
+void copy(double* x, double* y) {
+    for(int i = 0; i < 1024; i++) {
+        x[i] = y[i];
+    }
+}
+
+This for-loop can be safely parallelized.
+There are no dependecies between the individual iterations, 
+so the iterations can the worked on with multiple threads.
+
+void copy(double* x, double* y) {
+    #pragma omp parallel for
+    for (int i = 0; i < 1024; i++) {
+        x[i] = y[i];
+    }
+}
+
+This can also be done by the compiler since this is a simple loop, 
+with each iteration beeing independent. He can use multiple threads 
+or vectorizing the loop.
+
+_____________________________________________________________________
+
+for (int i=4; i<=N; i+=9) {
+    for (int j=0; j<=N; j+=5) {
+        A[i] = 0;
+    }
+}
+
+to normalize the loops need to start with 0 and getting incremented by 1:
+
+for (int i = 0; i <= (N - 4) / 9; i++) {
+    for (int j = 0; j <= N / 5; j++) {
+        normalizedA[4 + 9 * i] = 0;
+    }
+}
+I dont know why the inner-for loop exist, because it still does the same without it.
+_____________________________________________________________________
+
+for(int i = 1; i < N; i++) {
+    for(int j = 1; j < M; j++) {
+        for(int k = 1; k < L; k++) {
+            a[i+1][j][k-1] = a[i][j][k] + 5;
+        }
+    }
+}
+
+This code has dependecies between interations, because a[i+1][j][k-1] depends on the
+value of a[i][j][k], so parallelizing would result in a race-condition.
+for parallelizing I dont see a solution to do it.
