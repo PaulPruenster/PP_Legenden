@@ -1,0 +1,79 @@
+a[0] = 0;
+#pragma omp parallel for
+for (i=1; i<N; i++) {
+    a[i] = 2.0*i*(i-1);
+    b[i] = a[i] - a[i-1];
+}
+
+This is a antidependecy on a[] because the data is beeing used over more iterations.
+Therefore it cannot be parallelized the way we want to do with "parallel for".
+But even after renaming we cannot parallelize because we would also need a dependecy with
+updating the copied array. So it is not possible to parallelize this problem.
+---------------------------------
+
+a[0] = 0;
+#pragma omp parallel
+{
+    #pragma omp for nowait
+    for (i=1; i<N; i++) {
+        a[i] = 3.0*i*(i+1);
+    }
+    #pragma omp for
+    for (i=1; i<N; i++) {
+        b[i] = a[i] - a[i-1];
+    }
+}
+
+Here we have a RaceCondition because of the nowait in the first loop.
+When a thread is finished it will start the second for and can possibly try to access 
+some data which has not been changed right from the first loop.
+
+If we just leave out the nowait we would make it right because omp waits
+automatically for all threads after such a parallel region. 
+---------------------------------
+
+#pragma omp parallel for
+for (i=1; i<N; i++) {
+    x = sqrt(b[i]) - 1;
+    a[i] = x*x + 2*x + 1;
+}
+
+This is a perfect example of a parallelizable for loop.
+We can write the first line for all x in the second line and still have no dependecies
+across iterations. We use each variable one once and also the iterating arrays. 
+---------------------------------
+
+f = 2;
+#pragma omp parallel for private(f,x)
+for (i=1; i<N; i++) {
+    x = f * b[i];
+    a[i] = x - 7;
+}
+a[0] = x; 
+
+f and x are private for each thread in the loop parallelization.
+It can be computed right without any dependecies or RaceCondition inside the loop.
+After the loop we have the value from x before the loop because the original value
+never got changed.
+So everything is correct.
+---------------------------------
+
+sum = 0; 
+#pragma omp parallel for
+for (i=1; i<N; i++) {
+    sum = sum + b[i];
+}
+
+The variable sum is by default shared inside the loop.
+Therefore it is a RaceCondition between each thread for writing and reading the sum.
+The perfect way to make this better is by Reduction.
+
+sum = 0; 
+#pragma omp parallel for reduction(+ : sum)
+for (i=1; i<N; i++) {
+    sum = sum + b[i];
+}
+
+Otherwise we also could just make a private sum for each and then sum all together after the loop.
+But reduction is here the right way.
+---------------------------------
