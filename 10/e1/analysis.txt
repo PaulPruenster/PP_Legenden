@@ -1,0 +1,81 @@
+In this exercise we had to analyze some code snippets:
+-------------------------------------------------------------------------------
+
+for (int i=0; i < n-1; i++) {
+    x[i] = (y[i] + x[i+1]) / 7;
+}
+
+In here we have an antidependence for the array "x".
+To solve this, we can simply rename the variable x (the x from which we read)
+So our code would look like this:
+
+for (i = 0; i < n-1; i++)
+    x2[i] = x[i];
+
+for (int i = 0; i < n-1; i++) {
+    x[i] = (y[i] + x2[i+1]) / 7;
+}
+
+We can now also parallelize the loops with "#pragma omp parallel for":
+
+#pragma omp parallel for
+for (i = 0; i < n-1; i++)
+    x2[i] = x[i];
+
+#pragma omp parallel for
+for (int i = 0; i < n-1; i++) {
+    x[i] = (y[i] + x2[i+1]) / 7;
+}
+
+-----------------------------------------------------------------------------
+for (int i=0; i < n; i++) {
+    a = (x[i] + y[i]) / (i+1);
+    z[i] = a;
+}
+
+f = sqrt(a + k);
+
+In this code snippet we have a so called "True-Dependence" regarding "a": Read After Write (RAW).
+so we could parallelize the whole thing, but have to make sure that a is private so we don't
+get thw wrong results.
+The last thing we have to look at is the line where we compute f. Here we use the variable "a".
+So now if we set "a" to private we would have the same "a" as before the loop. But the sequential code is different,
+because we use the last "a" that was computed to get the value of the variable f. So we could theoretically
+parallelize this code, but this would result in a wrong value of the variable "f" i think:
+
+#pragma omp parallel for private(a)
+for (int i=0; i < n; i++) {
+    a = (x[i] + y[i]) / (i+1);
+    z[i] = a;
+}
+
+f = sqrt(a + k);
+
+
+** f could be a result of "loop peeling" in the previous step (maybe f was in the loop right before)
+
+-------------------------------------------------------------------------------
+for (int i=0; i < n; i++) {
+   x[i] = y[i] * 2 + b * i;         (S1)
+}
+
+
+for (int i=0; i < n; i++) {
+   y[i] = x[i]  + a / (i+1);        (S2)
+}
+
+These two loops maybe initially were a true- and antidependence: In the code snippet we see two for-loops 
+with loop-independent dependencies. But it is relevant in what order we run the loops. The direction vector equals 0 right here
+and S1 occurs textually before S2. So everything should be right if the two loops are executed in the right order.
+
+To parallelize this we could simply again use "#pragma omp parallel for":
+
+#pragma omp parallel for
+for (int i=0; i < n; i++) {
+   x[i] = y[i] * 2 + b * i;         (S1)
+}
+
+#pragma omp parallel for
+for (int i=0; i < n; i++) {
+   y[i] = x[i]  + a / (i+1);        (S2)
+}
