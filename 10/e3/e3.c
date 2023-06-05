@@ -6,7 +6,7 @@
 
 #define SIZE 1024 * 1024
 
-void seriel(double* a, double b) { 
+void seriel(double* a[], double b) { 
     for (int i = 0; i < 4; ++i) {
         for (int j = 1; j < 4; ++j) {
             a[i + 2][j - 1] = b * a[i][j] + 4;
@@ -15,7 +15,7 @@ void seriel(double* a, double b) {
 }
 
 
-void parallel(double* a, double b) { 
+void parallel(double* a[], double b) { 
     #pragma omp parallel for collapse(2)
     for (int i = 0; i < 4; ++i) {
         for (int j = 1; j < 4; ++j) {
@@ -26,7 +26,7 @@ void parallel(double* a, double b) {
 
 int main() {
     double factor = 1;
-    double *x = (double *) malloc(SIZE * sizeof(double));
+    double *x = (double **)malloc(SIZE * sizeof(double*));
 
     double start_time = omp_get_wtime();
     seriel(x, factor);
