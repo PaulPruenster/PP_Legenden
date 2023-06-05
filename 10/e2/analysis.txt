@@ -1,0 +1,50 @@
+double factor = 1;
+
+for (int i=0; i < n; i++) {
+    x[i] = factor * y[i];
+    factor = factor / 2;
+}
+
+ The data dependecy here is factor, because for earch iteration its getting smaller.
+so we have to rewrite how the factor is getting calcualted.
+
+
+#pragma omp parallel for
+for (int i = 0; i < n; i++) {
+    double factor = 1 / pow(2, i);
+    x[i] = factor * y[i];
+}
+
+___________________________________________________________________________________________
+
+for (int i = 1; i<n; i++) {
+    x[i] = (x[i] + y[i-1]) / 2;
+    y[i] = y[i] + z[i] * 3;
+}
+
+here the data dependecy is that for x, y[i - 1] is used, so we need the iteration n-1 for n.
+To paralize this we can calculate y first in a for loop and then x.
+
+#pragma omp parallel for
+for (int i = 1; i<n; i++) {
+    y[i] = y[i] + z[i] * 3;
+}
+
+#pragma omp parallel for
+for (int i = 1; i<n; i++) {
+    x[i] = (x[i] + y[i-1]) / 2;
+}
+
+___________________________________________________________________________________________
+
+x[0] = x[0] + 5 * y[0];
+for (int i = 1; i<n; i++) {
+    x[i] = x[i] + 5 * y[i];
+    if ( twice ) {
+        x[i-1] = 2 * x[i-1]
+    }
+}
+
+
+Here the data dependecy is that we change x[i-1] if twice is True, so if multiple threads are working
+on this, if i+1 is calculated before i, and for i+1 twice is True, then we have a problem. 
