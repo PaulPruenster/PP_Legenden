@@ -2,10 +2,11 @@
 #include <stdlib.h>
 #include <time.h>
 #include <omp.h>
+#include <math.h>
 
 
 
-#define SIZE 1024 * 1024
+#define SIZE 1024 * 1024 * 1024
 
 
 void seriel(double* x, double* y, double factor, int n) { 
@@ -16,7 +17,7 @@ void seriel(double* x, double* y, double factor, int n) {
 }
 
 
-void parallel(double* x, double* y, double factor, int n) { 
+void parallel(double* x, double* y, int n) { 
     #pragma omp parallel for
     for (int i = 0; i < n; i++) {
         double factor = 1 / pow(2, i);
@@ -24,24 +25,24 @@ void parallel(double* x, double* y, double factor, int n) {
     }
 }   
 
-int main(int argc, char** argv) {
+int main() {
 
     double start_time, end_time, elapsed_time;
     double factor = 1;
     double *x = (double *) malloc(SIZE * sizeof(double));
     double *y = (double *) malloc(SIZE * sizeof(double));
-double
+
     start_time = omp_get_wtime();
     seriel(x, y, factor, SIZE);
     end_time = omp_get_wtime();
     elapsed_time = end_time - start_time;
-    printf("size = %d, time = %f\n", SIZE, elapsed_time);
+    printf("seriel: size = %d, time = %f\n", SIZE, elapsed_time);
 
     start_time = omp_get_wtime();
-    parallel(x, y, factor, SIZE);
+    parallel(x, y, SIZE);
     end_time = omp_get_wtime();
     elapsed_time = end_time - start_time;
-    printf("size = %d, time = %f\n", SIZE, elapsed_time);
+    printf("parallel: size = %d, time = %f\n", SIZE, elapsed_time);
 
 
 }
