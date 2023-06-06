@@ -48,3 +48,15 @@ for (int i = 1; i<n; i++) {
 
 Here the data dependecy is that we change x[i-1] if twice is True, so if multiple threads are working
 on this, if i+1 is calculated before i, and for i+1 twice is True, then we have a problem. 
+
+x[0] = x[0] + 5 * y[0];
+if ( twice ) {
+    for (int i = 1; i<n; i++) {
+        x[i] = x[i] + 5 * y[i];
+        x[i-1] = 2 * x[i-1]
+    }
+} else {
+    for (int i = 1; i<n; i++) {
+        x[i] = x[i] + 5 * y[i];
+    }
+}
