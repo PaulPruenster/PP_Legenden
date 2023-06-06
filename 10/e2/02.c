@@ -20,12 +20,12 @@ void parallel(double* x, double* y, double* z, int n) {
 
     #pragma omp parallel for
     for (int i = 1; i<n; i++) {
-        y[i] = y[i] + z[i] * 3;
+        x[i] = (x[i] + y[i-1]) / 2;
     }
-
+    
     #pragma omp parallel for
     for (int i = 1; i<n; i++) {
-        x[i] = (x[i] + y[i-1]) / 2;
+        y[i] = y[i] + z[i] * 3;
     }
 }   
 
