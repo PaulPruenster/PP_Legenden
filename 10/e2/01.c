@@ -20,8 +20,7 @@ void seriel(double* x, double* y, double factor, int n) {
 void parallel(double* x, double* y, int n) { 
     #pragma omp parallel for
     for (int i = 0; i < n; i++) {
-        double factor = 1 / pow(2, i);
-        x[i] = factor * y[i];
+        x[i] = y[i] / pow(2, i);
     }
 }   
 

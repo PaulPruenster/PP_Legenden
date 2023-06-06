@@ -1,0 +1,5 @@
+seriel: size = 1073741824, time = 9.063691
+parallel: size = 1073741824, time = 12.011312
+
+seriel: size = 104857600, time = 2.178265
+parallel: size = 104857600, time = 0.544983
