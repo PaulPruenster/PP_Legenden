@@ -5,7 +5,7 @@
 
 #define SIZE 1024 * 1024
 
-void seriel(int *x, int *y, double factor, int n, int twice) {
+void seriel(int *x, int *y, int n, int twice) {
   x[0] = x[0] + 5 * y[0];
   for (int i = 1; i < n; i++) {
     x[i] = x[i] + 5 * y[i];
@@ -15,7 +15,7 @@ void seriel(int *x, int *y, double factor, int n, int twice) {
   }
 }
 
-void parallel(int *x, int *y, double factor, int n, int twice) {
+void parallel(int *x, int *y, int n, int twice) {
   x[0] = x[0] + 5 * y[0];
   if (twice) {
     for (int i = 1; i < n; i++) {
@@ -29,31 +29,30 @@ void parallel(int *x, int *y, double factor, int n, int twice) {
   }
 }
 
-int main(int argc, char **argv) {
+int main() {
 
   double start_time, end_time, elapsed_time;
-  double factor = 1;
-  float *x = (int *)malloc(SIZE * sizeof(int));
-  float *y = (int *)malloc(SIZE * sizeof(int));
+  int *x = (int *)malloc(SIZE * sizeof(int));
+  int *y = (int *)malloc(SIZE * sizeof(int));
 
   start_time = omp_get_wtime();
-  seriel(x, y, factor, SIZE, 1);
+  seriel(x, y, SIZE, 1);
   end_time = omp_get_wtime();
   elapsed_time = end_time - start_time;
   printf("size = %d, time = %f\n", SIZE, elapsed_time);
   start_time = omp_get_wtime();
-  seriel(x, y, factor, SIZE, 0);
+  seriel(x, y, SIZE, 0);
   end_time = omp_get_wtime();
   elapsed_time = end_time - start_time;
   printf("size = %d, time = %f\n", SIZE, elapsed_time);
 
   start_time = omp_get_wtime();
-  parallel(x, y, factor, SIZE, 1);
+  parallel(x, y, SIZE, 1);
   end_time = omp_get_wtime();
   elapsed_time = end_time - start_time;
   printf("size = %d, time = %f\n", SIZE, elapsed_time);
   start_time = omp_get_wtime();
-  parallel(x, y, factor, SIZE, 0);
+  parallel(x, y, SIZE, 0);
   end_time = omp_get_wtime();
   elapsed_time = end_time - start_time;
   printf("size = %d, time = %f\n", SIZE, elapsed_time);
