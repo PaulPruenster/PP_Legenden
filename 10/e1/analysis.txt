@@ -41,9 +41,10 @@ get thw wrong results.
 The last thing we have to look at is the line where we compute f. Here we use the variable "a".
 So now if we set "a" to private we would have the same "a" as before the loop. But the sequential code is different,
 because we use the last "a" that was computed to get the value of the variable f. So we could theoretically
-parallelize this code, but this would result in a wrong value of the variable "f" i think:
+parallelize this code, but this would result in a wrong value of the variable "f".
+So we use lastprivate(a) and therefore have the sequential result of a in the computation of f.
 
-#pragma omp parallel for private(a)
+#pragma omp parallel for lastprivate(a)
 for (int i=0; i < n; i++) {
     a = (x[i] + y[i]) / (i+1);
     z[i] = a;
@@ -70,12 +71,14 @@ and S1 occurs textually before S2. So everything should be right if the two loop
 
 To parallelize this we could simply again use "#pragma omp parallel for":
 
-#pragma omp parallel for
+#pragma omp parallel for shedule(static) // static is standard and just gives each thread same sized chunks
 for (int i=0; i < n; i++) {
    x[i] = y[i] * 2 + b * i;         (S1)
 }
 
-#pragma omp parallel for
+// here is a implicite barrier in the code after a parallel for
+
+#pragma omp parallel for shedule(static)
 for (int i=0; i < n; i++) {
    y[i] = x[i]  + a / (i+1);        (S2)
 }
