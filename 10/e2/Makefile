@@ -1,7 +1,7 @@
 CFLAGS = -std=gnu11 -Wall -Werror -Wextra -fopenmp
 
 .PHONY: all
-all: 01 02
+all: 01 02 03
 
 .PHONY: clean
 clean:
