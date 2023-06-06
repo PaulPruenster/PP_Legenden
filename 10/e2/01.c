@@ -6,8 +6,7 @@
 
 
 
-#define SIZE 1024 * 1024 * 1024
-
+#define SIZE 100000000
 
 void seriel(double* x, double* y, double factor, int n) { 
     for (int i=0; i < n; i++) {

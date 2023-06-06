@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define SIZE 1024 * 1024
+#define SIZE 100000000
 
 void seriel(int *x, int *y, double factor, int n, int twice) {
   x[0] = x[0] + 5 * y[0];
