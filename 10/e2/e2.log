@@ -1,5 +1,4 @@
-seriel: size = 1073741824, time = 9.063691
-parallel: size = 1073741824, time = 12.011312
-
-seriel: size = 104857600, time = 2.178265
-parallel: size = 104857600, time = 0.544983
+seriel: size = 100000000, time = 0.842329
+parallel: size = 100000000, time = 1.145449
+seriel: size = 100000000, time = 2.090642
+parallel: size = 100000000, time = 0.520061

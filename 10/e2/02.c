@@ -5,7 +5,7 @@
 
 
 
-#define SIZE 1024 * 1024 *100
+#define SIZE 100000000
 
 
 void seriel(double* x, double* y,double* z, int n) { 
