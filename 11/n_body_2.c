@@ -4,7 +4,7 @@
 #include <time.h>
 
 #define GRAVITATIONAL_CONSTANT 1.0
-#define NUM_PARTICLES 5000
+#define NUM_PARTICLES 500
 #define TIMESTEPS 100
 
 typedef struct {
@@ -63,20 +63,19 @@ int main() {
 
     // Initialize particles with random positions, velocities, and masses
     for (int i = 0; i < NUM_PARTICLES; i++) {
-        particles[i].x = random_double(-100.0, 100.0);
-        particles[i].y = random_double(-100.0, 100.0);
-        particles[i].z = random_double(-100.0, 100.0);
+        particles[i].x = random_double(0.0, 100.0);
+        particles[i].y = random_double(0.0, 100.0);
+        particles[i].z = random_double(0.0, 100.0);
         particles[i].vx = random_double(-1.0, 1.0);
         particles[i].vy = random_double(-1.0, 1.0);
         particles[i].vz = random_double(-1.0, 1.0);
         particles[i].mass = random_double(1.0, 10.0);
     }
 
-    // Perform simulation
     for (int t = 0; t < TIMESTEPS; t++) {
         compute_force(particles, NUM_PARTICLES);
         move_particles(particles, NUM_PARTICLES);
-        // Print final positions
+
         for (int i = 0; i < NUM_PARTICLES; i++) {
             printf("%f, %f, %f\n", particles[i].x, particles[i].y, particles[i].z);
         }
