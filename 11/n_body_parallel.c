@@ -42,7 +42,7 @@ void nBodySimulation(Particle *particles, int numParticles, int numSteps,
   for (int step = 0; step < numSteps; step++) {
 
 // Compute forces and update particles
-#pragma omp for // private(fx, fy, fz) collapse(2)
+    #pragma omp for // private(fx, fy, fz) collapse(2)
     for (int i = 0; i < numParticles; i++) {
       double fx = 0.0, fy = 0.0, fz = 0.0;
       for (int j = 0; j < numParticles; j++) {
@@ -59,6 +59,7 @@ void nBodySimulation(Particle *particles, int numParticles, int numSteps,
     }
 
     // Write particle data to file
+    #pragma omp for
     for (int i = 0; i < numParticles; i++) {
       fprintf(outputFile, "%.6f %.6f %.6f\n", particles[i].x, particles[i].y,
               particles[i].z);

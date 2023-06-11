@@ -14,5 +14,4 @@
 #SBATCH --exclusive
 
 ./n_body
-./n_body_2
 
