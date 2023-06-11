@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <time.h>
+#include <omp.h>
 
 #define G 1.0     // Gravitational constant
 #define DT 1.0    // Time step
@@ -85,7 +86,11 @@ int main() {
         return 1;
     }
 
+    double start_time = omp_get_wtime();
     nBodySimulation(particles, numParticles, numSteps, outputFile);
+    double end_time = omp_get_wtime();
+    double elapsed_time = end_time - start_time;
+    printf("time = %f\n", elapsed_time);
 
     fclose(outputFile);
     free(particles);
