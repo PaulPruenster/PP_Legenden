@@ -27,17 +27,17 @@ void computeForce(Particle *p1, Particle *p2, double *fx, double *fy,
 }
 
 // Function to update the position and velocity of a particle
-void updateParticle(Particle *p, double fx, double fy, double fz) {
-  p->vx += fx / p->mass * DT;
-  p->vy += fy / p->mass * DT;
-  p->vz += fz / p->mass * DT;
-  p->x += p->vx * DT;
-  p->y += p->vy * DT;
-  p->z += p->vz * DT;
+void updateParticle(Particle *p, Particle *p_2, double fx, double fy, double fz) {
+  p_2->vx = p->vx +  fx / p->mass * DT;
+  p_2->vy = p->vy + fy / p->mass * DT;
+  p_2->vz = p->vz + fz / p->mass * DT;
+  p_2->x = p->x + p_2->vx * DT;
+  p_2->y = p->y + p_2->vy * DT;
+  p_2->z = p->z + p_2->vz * DT;
 }
 
 // Function to perform the n-body simulation
-void nBodySimulation(Particle *particles, int numParticles, int numSteps,
+void nBodySimulation(Particle *particles,Particle *particles_2, int numParticles, int numSteps,
                      FILE *outputFile) {
   for (int step = 0; step < numSteps; step++) {
 
@@ -55,8 +55,12 @@ void nBodySimulation(Particle *particles, int numParticles, int numSteps,
         }
       }
       // wenn mia des weggriagn kemma collapse mochn
-      updateParticle(&particles[i], fx, fy, fz);
+      updateParticle(&particles[i], &particles_2[i], fx, fy, fz);
     }
+
+    Particle *temp = particles;
+    particles = particles_2;
+    particles_2 = temp;
 
     // Write particle data to file
     for (int i = 0; i < numParticles; i++) {
@@ -74,6 +78,7 @@ int main() {
   int numSteps = 100;
 
   Particle *particles = malloc(numParticles * sizeof(Particle));
+  Particle *particles_2 = malloc(numParticles * sizeof(Particle));
 
   // Generate random particles
   for (int i = 0; i < numParticles; i++) {
@@ -84,6 +89,7 @@ int main() {
     particles[i].vy = 0.0;
     particles[i].vz = 0.0;
     particles[i].mass = 1.0;
+    particles_2[i].mass = 1.0;
   }
 
   FILE *outputFile = fopen("data.dat", "w");
@@ -93,13 +99,14 @@ int main() {
   }
 
   double start_time = omp_get_wtime();
-  nBodySimulation(particles, numParticles, numSteps, outputFile); 
+  nBodySimulation(particles, particles_2, numParticles, numSteps, outputFile); 
   double end_time = omp_get_wtime();
   double elapsed_time = end_time - start_time;
   printf("time = %f\n", elapsed_time);
 
   fclose(outputFile);
   free(particles);
+  free(particles_2);
 
   return 0;
 }
