@@ -37,12 +37,12 @@ void updateParticle(Particle *p, double fx, double fy, double fz) {
 }
 
 // Function to perform the n-body simulation
-void nBodySimulation(Particle *particles, int numParticles, int numSteps,
+void nBodySimulation(Particle *particles, Particle *particles_2, int numParticles, int numSteps,
                      FILE *outputFile) {
   for (int step = 0; step < numSteps; step++) {
 
 // Compute forces and update particles
-    #pragma omp for // private(fx, fy, fz) collapse(2)
+    #pragma omp parallel for // private(fx, fy, fz) collapse(2)
     for (int i = 0; i < numParticles; i++) {
       double fx = 0.0, fy = 0.0, fz = 0.0;
       for (int j = 0; j < numParticles; j++) {
@@ -54,12 +54,14 @@ void nBodySimulation(Particle *particles, int numParticles, int numSteps,
           fz += dz;
         }
       }
-      // wenn mia des weggriagn kemma collapse mochn
-      updateParticle(&particles[i], fx, fy, fz);
-    }
 
-    // Write particle data to file
-    #pragma omp for
+      updateParticle(&particles_2[i], fx, fy, fz);
+    }
+    Particle *temp = particles;
+    particles = particles_2;
+    particles_2 = temp;
+
+
     for (int i = 0; i < numParticles; i++) {
       fprintf(outputFile, "%.6f %.6f %.6f\n", particles[i].x, particles[i].y,
               particles[i].z);
@@ -75,6 +77,7 @@ int main() {
   int numSteps = 100;
 
   Particle *particles = malloc(numParticles * sizeof(Particle));
+  Particle *particles_2 = malloc(numParticles * sizeof(Particle));
 
   // Generate random particles
   for (int i = 0; i < numParticles; i++) {
@@ -94,14 +97,16 @@ int main() {
   }
 
   double start_time = omp_get_wtime();
-#pragma omp parallel
-  { nBodySimulation(particles, numParticles, numSteps, outputFile); }
+  
+  nBodySimulation(particles, particles_2, numParticles, numSteps, outputFile); 
+
   double end_time = omp_get_wtime();
   double elapsed_time = end_time - start_time;
   printf("time = %f\n", elapsed_time);
 
   fclose(outputFile);
   free(particles);
+  free(particles_2);
 
   return 0;
 }
