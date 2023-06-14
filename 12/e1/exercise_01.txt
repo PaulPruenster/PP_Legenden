@@ -1,0 +1,74 @@
+In this exercise we assumed to have a scalar architecture and found a execution time that was too high, so we needed to optimize the 
+given code fragments (using strength reduction) and state, when exactly the changes should be applied:
+
+a)
+unsigned c2 = 32 * c1;
+
+Here we can use Bit-Shifting because it is less expensive than a multiplication:
+
+unsigned c2 = c1 << 5;
+
+b)
+unsigned c2 = 15 * c1;
+
+Here we can also use Bit-Shifting because it is less expensive than a multiplication and then use subtraction to subtract c1 once.
+
+unsigned c2 = c1 << 4 - c1;
+
+c)
+unsigned c2 = 96 * c1;
+
+Here we can also use Bit-Shifting because it is less expensive than a multiplication - but here we need to do this twice:
+
+unsigned c2 = c1 << 6 + c1 << 5;
+
+or even better:
+
+unsigned c2 = (c1 + c1 + c1) << 5;
+
+
+
+d)
+unsigned c2 = 0.125 * c1;
+
+Here we also use bit-shifting, but in the other direction:
+
+unsigned c2 = c1 >> 3;
+
+
+e)
+unsigned sum_fifth = 0;
+
+for (int i = 0; i < N / 5; ++i) {
+    sum_fifth += a[5 * i];
+}
+
+In this code fragment we could replace the multiplication and instead use an addition per iteration:
+(The division of "N" and the multiplication a[5 * i] was completely redundant)
+
+unsigned sum_fifth = 0;
+for (int i = 0; i < N; i+=5) {
+    sum_fifth += a[i];
+}
+
+f)
+for (int i = 0; i < N; ++i) {
+    a[i] += i / 5.3;
+}
+
+This code snippet makes a division and from the lecture we know that we can make a multiplication out of a division:
+
+double value = 1 /5.3;
+    for (int i = 0; i < N; ++i) {
+        a[i] += value * i;
+    }
+
+now the multiplication could also further be minimized to a loop of additions.
+
+g)
+float c2 = -1 * c1;
+
+Here we have a redundant multiplication, because we could just use the negation itself and receive the same
+result:
+
+float c2 = -c1;

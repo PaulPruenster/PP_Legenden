@@ -1,0 +1,30 @@
+a)
+Here we have the same ARM-Code for both versions: The compiler automatically uses
+shifting instead of multiplication, because it is cheaper
+
+b) 
+The same as in a)
+
+c)
+The same as in a) (the compiler performs additions and bit shifting instead of multiplication)
+
+d)
+Here we have two different outputs. If we further investigate the ARM-code, we can see that
+the first version, which was not optimized, does a few more operations, like "cvtsi2sdq       xmm0, rdi".
+This instruction converts a single precision floating point to a double precision floating point.
+(But this is redundant because we use type "unsigned")
+
+In our optimized version, we don't have this, because we use bitshifting (shr- operation)
+
+e)
+In e we again have the same ARM-code in both versions, so here the compiler saw the redundancy of N and of the multiplication
+and eliminated it -> so addition is again more suitable than a division and a multiplication. (The interesting thing here, is that we use XOR to get the value 0 -> this is due to efficient instruction decoding)
+
+f)
+Also in f we have the same code in the ARM-instructions: So the compiler converts the division to a multiplication and with that
+the two code snippets have the same efficiency (changing the multiplication to an addition was not done by the compiler)
+
+g)
+In g again we have the same ARM-Code: Instead of a redundant multiplication the compiler sees the redundancy and performs
+the operations for the negation. IEEE 754 single-precision floating-point numbers are typically stored using 32 bits in memory,
+with specific bits allocated for the sign, exponent, and mantissa - so we need to change the sign and invert the bits and add +1
