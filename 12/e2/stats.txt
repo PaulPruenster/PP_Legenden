@@ -1,0 +1,34 @@
+old: N = 100000001, time = 0.429776
+new: N = 100000001, time = 0.416139
+old: N = 100000001, time = 0.776041
+new: N = 100000001, time = 0.762124
+old: N = 100000001, time = 0.408270
+new: N = 100000001, time = 0.409623
+0 0 0
+old: N = 100000001, time = 0.091116
+0 0 0
+new: N = 100000001, time = 0.074780
+0 0
+old: N = 100000001, time = 0.091142
+0 0
+new: N = 100000001, time = 0.069561
+old: N = 100000001, time = 0.458005
+new: N = 100000001, time = 0.447113
+
+ Performance counter stats for './e2':
+
+          5,054.85 msec task-clock:u              #    1.000 CPUs utilized          
+                 0      context-switches:u        #    0.000 K/sec                  
+                 0      cpu-migrations:u          #    0.000 K/sec                  
+           990,170      page-faults:u             #    0.196 M/sec                  
+     3,272,853,973      cycles:u                  #    0.647 GHz                      (49.98%)
+     3,999,997,446      instructions:u            #    1.22  insn per cycle           (74.98%)
+       613,559,201      branches:u                #  121.380 M/sec                    (75.01%)
+             8,523      branch-misses:u           #    0.00% of all branches          (75.01%)
+
+       5.057024715 seconds time elapsed
+
+       1.301909000 seconds user
+       3.753740000 seconds sys
+
+

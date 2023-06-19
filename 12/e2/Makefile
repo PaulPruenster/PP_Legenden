@@ -1,4 +1,4 @@
-CFLAGS = -std=gnu11 -Wall -Wextra -fopenmp
+CFLAGS = -std=gnu11 -O3 -g -Wall -Wextra -fopenmp
 
 .PHONY: all
 all: e2 
